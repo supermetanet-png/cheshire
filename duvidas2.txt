@@ -1,0 +1,29 @@
+
+================================================================================
+RELATÓRIO DE INQUIRIÇÃO TÉCNICA NÍVEL 2 - CHESHIRE MEMORY (ARCHITECT LEVEL)
+SITUAÇÃO: DEFINIÇÃO DE CONTRATOS INTER-ÓRGÃOS E COMPUTAÇÃO LOCAL
+================================================================================
+
+Com as respostas fornecidas em 'respostas.txt' e a análise do ecossistema BaaS 'Cascata', a fundação está sólida. Contudo, para garantir o "Santo Graal" sem gargalos de performance ou falhas de soberania, restam as seguintes dúvidas de Engenharia de Sistemas:
+
+1. ORQUESTRAÇÃO DE INFERÊNCIA (CPU vs GPU):
+   O SLM (Small Language Model) para extração SPO e expansão taxonômica residirá na VPS 3. Dado que o tempo de resposta do Tálamo deve ser <150ms, utilizaremos aceleração via GPU (CUDA) ou os modelos serão quantizados (4-bit/GGUF) para execução ultra-rápida em CPU via ONNX/TensorFlow.js?
+
+
+2. PERSISTÊNCIA DA MATRIZ DE PROJEÇÃO (PCA/SVD):
+   A matriz de 128D será treinada por Project_ID. Onde deve residir o artefato binário desta matriz? No 'metadata' do projeto dentro do Cascata (VPS 2) como um Blob Base64 ou em um sistema de arquivos local persistente na VPS 3 para carregamento imediato em RAM?
+
+3. CONTRATO DO "HIDDEN SIGNAL" (PSIQUE -> n8n):
+   Para o protocolo de dissonância, a Psique injetará sinais ocultos. Este sinal deve seguir o padrão de metadados do PostgREST (headers X-) ou será uma chave reservada `_guardian_intervention` dentro do JSON de resposta que o n8n deve filtrar?
+
+4. MECÂNICA DE REFORÇO DE GRAFO (IMPLICIT FEEDBACK):
+   O "interaction_count" e o "weight" das arestas no Knowledge Graph serão incrementados automaticamente a cada 'Retrieval' bem-sucedido (leitura) ou apenas quando houver um 'Validation Signal' explícito (ação do usuário)?
+
+5. TRANSIÇÃO PARA O "INCONSCIENTE DIGITAL":
+   Quando a função sigmóide de erosão atingir o threshold crítico, o Fato Atômico é fisicamente deletado do Qdrant (Memória de Curto/Médio Prazo) e mantido apenas no Postgres (Long-Term/Cold Storage) ou permanece em ambos com o peso tendendo a zero?
+
+6. CONCORRÊNCIA NO TREINAMENTO SVD:
+   O re-treinamento a cada 1000 memórias é computacionalmente intensivo. Devemos bloquear a ingestão durante este processo (Locking) ou rodar o treinamento em um "Shadow Process" e trocar a matriz em "Hot-Swap" para garantir Zero-Downtime?
+
+Aguardando estas definições para iniciar a estruturação dos motores de processamento.
+================================================================================

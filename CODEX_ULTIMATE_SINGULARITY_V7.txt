@@ -1,0 +1,187 @@
+
+================================================================================
+          CHESHIRE MEMORY SYSTEM - THE ULTIMATE CODEX V7 (SINGULARITY)
+================================================================================
+Versão: 7.0 (Singularidade Final)
+Codinome: "THE QUANTUM GRIN - THE ETERNAL BIOGRAPHICAL ARCHIVE"
+Classificação: Engenharia de Sistemas Cognitivos (Nível Staff/PhD)
+Status: Documentação Exaustiva para Implementação Core (VPS 3)
+================================================================================
+
+1. PREFÁCIO ONTOLÓGICO: A FILOSOFIA DO SORRISO QUÂNTICO
+--------------------------------------------------------------------------------
+1.1. O Paradoxo de Carroll: 
+O Cheshire Memory não armazena logs de chat; ele extrai a "alma" (o sorriso) das 
+informações. Enquanto o "Corpo" (a mensagem bruta) é efêmero e pode ser 
+arquivado ou anonimizado, o "Sorriso" (os fatos, relações e sentimentos) 
+permanece permanentemente no Grafo de Conhecimento.
+
+1.2. O Gato de Cheshire Quântico: 
+Na física quântica, as propriedades de uma partícula podem ser separadas de sua 
+trajetória física. No Cheshire v7, os Fatos Atômicos são as propriedades 
+separadas dos Eventos Brutos. Isso permite que o sistema saiba quem o usuário é, 
+mesmo que a conversa original tenha sido deletada há anos.
+
+1.3. Dogma da Separação Cognitiva (Sistema 1 vs Sistema 2):
+O Cheshire é o "Sistema 2" (Deliberativo). Ele não gera respostas para o 
+usuário final. Ele fornece "Intuição Contextual" para o "Sistema 1" (Executivo), 
+permitindo que a IA executora saiba fatos, traumas, preferências e estados 
+emocionais antes de formular a primeira palavra.
+
+2. ARQUITETURA DE INFRAESTRUTURA DISTRIBUÍDA (TRI-VPS TOPOLOGY)
+--------------------------------------------------------------------------------
+O sistema opera em uma simbiose de isolamento físico para garantir latência 
+<450ms e segurança militar.
+
+2.1. VPS 1: O LÓBULO FRONTAL (EXECUTIVO)
+- Stack: n8n, Redis (Cache L1), Proxy de Entrada.
+- Função: Interface com o mundo. Normaliza mensagens do WhatsApp/IG para o 
+  JSON Canônico (menssagem_cliente.json).
+- Responsabilidade: Limpeza de ruído e ferramentas de ação imediata.
+
+2.2. VPS 2: O COFRE (CASCATA DB - CONSOLIDATED DATA)
+- Stack: PostgreSQL 15+ (PostGIS, pgcrypto), Qdrant 1.10+ (Vector Engine).
+- Função: Persistência de alta fidelidade e Governança de Acesso (RLS).
+- Segurança: Isolamento físico total. Acesso restrito via mTLS às VPS 1 e 3.
+- Soberania: Responsável pela geração do arquivo .CAF (Cascata Archive Format).
+
+2.3. VPS 3: A PSIQUE (CHESHIRE COGNITIVE CORE)
+- Stack: Node.js 22 LTS, TensorFlow.js (PCA), Transformers.js (Reranking).
+- Função: Processamento pesado, Extração SPO e Raciocínio Topológico.
+- Isolamento: O "Cérebro" não guarda dados de longo prazo; ele os processa e 
+  os envia para o Cofre (VPS 2) via Outbox Pattern.
+
+3. O PIPELINE DO TÁLAMO (CAMADA 1 - INGESTÃO E NORMALIZAÇÃO)
+--------------------------------------------------------------------------------
+Cada evento (mensagem ou log de sistema) deve ser processado em <150ms.
+
+3.1. Normalização Matricial (Token Efficiency):
+Entrada: JSON estruturado com esquemas de matriz (media_schema, location_schema).
+Ação: O Cheshire reconstrói a semântica interna sem repetir chaves desnecessárias, 
+economizando até 40% de tokens na extração SPO.
+
+3.2. Content-Hashing e Verificação de Déjà Vu:
+Ação: Gerar SHA-256 do conteúdo semântico limpo.
+Deduplicação: Verificação instantânea no Redis. Se o hash existir, o evento 
+é descartado antes de tocar no banco de dados.
+
+3.3. Filtro de Entropia Semântica (The Gatekeeper):
+Lógica: Mensagens com baixa densidade informativa ("ok", "oi", "valeu") são 
+marcadas como `bypass_extraction: true`. Elas são salvas como log cronológico, 
+mas nunca geram triadas no Grafo, poupando processamento de embeddings.
+
+4. ESPELHO QUÂNTICO (CAMADA 2 - DUAL-MAPPING VETORIAL)
+--------------------------------------------------------------------------------
+4.1. Primary Map (The Essence - 2048D):
+- Modelo: text-embedding-3-large (OpenAI) ou Fallback Local.
+- Função: Captura de nuances profundas, subtexto e ironia.
+
+4.2. Secondary Map (The Fingerprint - 128D):
+- Algoritmo: PCA (Principal Component Analysis) treinado POR PROJECT_ID.
+- Treinamento: Disparado automaticamente a cada 1000 novas memórias para 
+  capturar a variância semântica específica do nicho do usuário.
+- Propósito: Busca ultra-rápida (<20ms) no Qdrant para filtragem inicial.
+
+5. CARTOGRAFIA DE TRIADAS (CAMADA 3 - UNIDADE ATÔMICA SPO)
+--------------------------------------------------------------------------------
+O Cheshire não entende frases; ele entende a estrutura da realidade.
+
+5.1. Esquema SPO: [Sujeito] -> [Predicado] -> [Objeto]
+Exemplo: [User_UUID] -> [tem_alergia_a] -> [Camarão].
+
+5.2. Ontology Guardrail (O Normalizador):
+Mecanismo: Após a extração pelo LLM, o predicado é passado por um dicionário 
+semântico local. Se o modelo extrair "receia", o sistema mapeia para o token 
+canônico "tem_medo_de", mantendo a integridade do grafo.
+
+5.3. Metadados de Gravidade e Plasticidade:
+- Core Memories (G: 1.0): Fatos históricos imutáveis ("Nasci em Manaus").
+- Plastic States (G: 0.3): Preferências fluidas ("Estou de dieta").
+- Temporal State Collapsing: Para fatos tipo 'state', apenas o nó mais 
+  recente é mantido ativo para o Oráculo.
+
+5.4. Indexação Afetiva (O Espectro de Plutchik):
+Coordenadas: Cada triada recebe 512 dimensões emocionais expandidas 
+dinamicamente. O sistema recupera memórias não só pelo tema, mas pelo "humor" 
+do dado.
+
+6. GNN ENGINE (CAMADA 4 - REASONING TOPOLÓGICO)
+--------------------------------------------------------------------------------
+6.1. Ativação por Vizinhança (2-Hops):
+Ao ativar o nó "Viagem", o motor ativa "Passaporte", "Aeroporto" e "Medo de Avião".
+
+6.2. Poda Espectral Dinâmica (Hub Protection):
+Regra: O grafo pode ser infinito no Postgres, mas a GNN na VPS 3 só carrega 
+as 50 arestas de maior peso por nó. Isso impede que nós genéricos (Ex: "Trabalho") 
+virem gargalos computacionais.
+
+6.3. Link Prediction (Intuição):
+O Worker Sonhador infere relações latentes. Se o usuário gosta de "Vinho" e 
+"Frio", a GNN cria uma aresta inferida com "Gramado/RS".
+Peso de Origem: Memórias inferidas têm 40% de penalidade no reranking (0.6:1.0).
+
+7. JUIZ DE DISSONÂNCIA E POLI-VERDADE (CAMADA 5)
+--------------------------------------------------------------------------------
+7.1. Doutrina da Poly-Truth:
+Fatos contraditórios podem coexistir se estiverem em escopos diferentes 
+(Profissional vs Íntimo).
+
+7.2. Lei da Recência Ponderada (Scarring):
+Conflito no mesmo escopo: Confidence_Score * Recency_Weight. O fato antigo 
+perde peso, mas permanece como uma "cicatriz" no Inconsciente Digital, 
+representando a evolução do usuário.
+
+7.3. Hidden Signal Protocol:
+Ao detectar uma dissonância de 50/50, a Psique injeta a chave 
+`_cascata_guardian` no JSON de resposta para o n8n resolver a dúvida via 
+intervenção humana ou proativa.
+
+8. O ORÁCULO (CAMADA 6 - MULTI-STAGE RETRIEVAL)
+--------------------------------------------------------------------------------
+A busca ocorre em 4 estágios cirúrgicos:
+
+8.1. Stage 1: Fast Path (Named Vector - 128D)
+Busca no Qdrant em <20ms para obter o Top 100 de pontos (IDs).
+
+8.2. Stage 2: Semantic Healing (Deep Path - 2048D)
+Se o Stage 1 encontrar uma memória fria (cold_memory), a Psique re-vetoriza 
+o texto bruto original On-The-Fly para o 2048D.
+
+8.3. Stage 3: Graph Expansion
+Busca no Postgres por vizinhos de 2 níveis dos nós encontrados nos estágios 1 e 2.
+
+8.4. Stage 4: Cross-Encoder Reranking
+Modelo local ms-marco compara a query com o resumo biográfico consolidado 
+para garantir 99.99% de precisão.
+
+9. TERMODINÂMICA E RESILIÊNCIA (REQUISITOS DE EXECUÇÃO)
+--------------------------------------------------------------------------------
+9.1. Outbox Pattern Semântico (Atomicidade):
+Todo fato atômico é salvo no Postgres com `sync_status: 'local_only'`. O 
+Worker de Sincronia garante o envio para o Qdrant. Sem sincronia, a memória 
+não é "lembrada" pelo Oráculo.
+
+9.2. AI Gateway Circuit Breaker:
+O sistema mantém um pool de 5 instâncias de modelos (Grok, Gemini, GPT, 
+Local Llama). Se o provedor A falhar ou demorar >150ms, chaveia para o B. 
+O aprendizado é ininterrupto.
+
+9.3. Nostalgia Governor (CPU Protection):
+Em conversas profundas sobre o passado, o sistema limita a re-materialização 
+On-The-Fly. Se a carga for alta, usa-se o contexto do Postgres e agenda-se 
+a re-vetorização 2048D para o ciclo de sono (Dreamer).
+
+10. POLÍTICA DE IMORTALIDADE (THE QUANTUM GRIN)
+--------------------------------------------------------------------------------
+10.1. Soberania .CAF 2.0:
+O backup exportado contém o Dump do Grafo (Postgres) + Snapshot Binário (Qdrant).
+
+10.2. Direito ao Esquecimento (Anonymization):
+Em caso de deleção de conta, o UUID do usuário é substituído por um hash 
+irreversível. O conhecimento (embeddings e arestas) permanece como capital 
+intelectual anônimo do sistema, preservando a evolução estrutural da IA.
+
+================================================================================
+                       - CHESHIRE MEMORY SINGULARITY
+              "O gato desaparece, mas o conhecimento é eterno."
+================================================================================

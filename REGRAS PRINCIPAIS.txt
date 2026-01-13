@@ -1,0 +1,26 @@
+1. Nunca edite arquivos ou códigos em minha clara solicitação e permissão.
+2. Sempre se atende a minha menssagem mai recente atual e respeite-a!
+3. INTEGRIDADE DE REFERÊNCIA
+- Respeite integralmente a nomenclatura dos arquivos existentes.
+- Se o arquivo já existe como `server.ts`, não mude para `index.ts`.
+- Se o arquivo é `Dockerfile.txt`, edite-o como `Dockerfile.txt`.
+- Se vai falar de tal arquivo dentro de outro arquivo ele deve ter o nome real sem o .txt pois só será executado comandos mv par remover o .txt do nome e não dentro dos arquivos em referencia, por isso dentro dos arquivos ao fazer referencia a outro deve ter o nome certo sem  'txt'
+
+4. MOTIVAÇÃO TÉCNICA
+Muitas IDEs Web como aqui possuem "filesystems virtuais" que bugam ao lidar com arquivos dotfiles (.env) ou arquivos sem extensão clara (Dockerfile). O uso do `.txt` garante que o conteúdo seja tratado como texto puro, preservando a codificação e permitindo a edição segura pela IA.
+
+.env                              | .env.txt
+.dockerignore                     | .dockerignore.txt
+Dockerfile                        | Dockerfile.txt
+nginx.conf                        | nginx.conf.txt
+init.sql                          | init.sql.txt
+qualquer_migration.sql            | qualquer_migration.sql.txt
+backend/main.py                   | backend/main.py.txt
+backend/database.py               | backend/database.py.txt
+backend/routers/ingest.py         | backend/routers/ingest.py.txt
+backend/routers/retrieve.py       | backend/routers/retrieve.py.txt
+backend/workers/embedding_processor.py | backend/workers/embedding_processor.py.txt
+
+
+REGRA DE OURO:
+- Se vai falar de tal arquivo dentro de outro arquivo ele deve ter o nome real sem o .txt pois só será executado comandos mv par remover o .txt do nome e não dentro dos arquivos em referencia, por isso dentro dos arquivos ao fazer referencia a outro deve ter o nome certo sem  '.txt'

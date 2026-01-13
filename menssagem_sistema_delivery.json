@@ -1,0 +1,52 @@
+{
+  "platform": "internal_system",
+  "data": 1720805000000,
+  "user_id": "sistema",
+  "recipient_id": "5511999887766",
+  "content": {
+    "type": "service_log",
+    "text": "Pedido de alimentação confirmado: Combo X-Bacon Artesanal da 'Hamburgueria do Zé'.",
+    "html": null,
+    "media": [],
+    "media_schema": ["type", "description", "caption"],
+    "location": [],
+    "location_schema": ["lat", "lng", "name", "address"],
+    "contacts": [],
+    "contacts_schema": ["name", "phone", "email"],
+    "links": [],
+    "links_schema": ["url", "description"],
+    "files": [
+      ["nota_fiscal.pdf", "base64_content..."]
+    ],
+    "files_schema": ["name", "content"],
+    "metadata": {
+      "service_provider": "ifood",
+      "category": "food_delivery",
+      "restaurant_name": "Hamburgueria do Zé",
+      "items": [
+        "1x X-Bacon Artesanal (Ponto da carne: Ao ponto)",
+        "1x Batata Rústica Grande",
+        "1x Coca-Cola Zero"
+      ],
+      "total_value": 62.50,
+      "currency": "BRL",
+      "delivery_estimate_min": 45,
+      "status": "preparing",
+      "confidence_score": 1.0,
+      "fact_scope": "alimentacao_preferencias"
+    }
+  },
+  "event": {
+    "category": "system_action",
+    "action": "order_placed",
+    "routing": "deep_memory"
+  },
+  "context": {
+    "thread": [
+      ["msg_205", "5511999887766", "Tô com uma fome... pede aquele lanche de sempre?", 1720804900000, "msg_204"],
+      ["msg_206", "sistema", "Pedido de alimentação confirmado: Combo X-Bacon Artesanal da 'Hamburgueria do Zé'.", 1720805000000, "msg_205"]
+    ],
+    "thread_schema": ["id", "from", "text", "timestamp", "reply_to"],
+    "is_echo": true
+  }
+}

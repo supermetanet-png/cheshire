@@ -1,0 +1,331 @@
+================================================================================
+CODEX MESTRE: CHESHIRE MEMORY SYSTEM (V7 SINGULARITY)
+CODINOME: "THE QUANTUM SMILE - TOTAL ARCHITECTURAL REVELATION"
+VERSÃO: 7.0 (SINGULARIDADE FINAL)
+CLASSIFICAÇÃO: DOCUMENTAÇÃO DE ENGENHARIA DE ALTA FIDELIDADE (TOP-SECRET)
+================================================================================
+
+1. PREFÁCIO ONTOLÓGICO: A NATUREZA DO SISTEMA
+--------------------------------------------------------------------------------
+O Cheshire Memory System não é uma ferramenta de armazenamento; é um organismo 
+de retenção biográfica. Ele resolve a amnésia congênita dos Large Language Models 
+(LLMs) ao criar uma ponte persistente entre o "Eu anterior" e o "Eu presente" 
+do usuário. O sistema baseia-se na metáfora do Gato de Cheshire de Lewis Carroll:
+o corpo (o log da mensagem) é efêmero e pode desaparecer, mas o sorriso 
+(o significado, o fato, a identidade) permanece eternamente no conhecimento.
+
+1.1. O Dogma da Separação Cognitiva
+O Cheshire opera no "Sistema 2" (Deliberativo). Ele não responde ao usuário. 
+Ele observa, associa, pondera e mune o "Sistema 1" (O Executivo/n8n) com a 
+intuição necessária para uma resposta hiper-contextualizada.
+
+2. INFRAESTRUTURA FÍSICA E ISOLAMENTO (TRI-VPS TOPOLOGY)
+--------------------------------------------------------------------------------
+A segurança e a performance exigem isolamento físico em três instâncias:
+
+2.1. VPS 1: O EXECUTIVO (THE FRONT LOBE)
+- Stack: n8n, Redis (Cache L1), Normalizador Universal.
+- Função: Interface com o mundo (WhatsApp, IG, Web). 
+- Responsabilidade: Limpeza de ruído, transcrição de áudio, extração de mídia e i.a resolvedora que pode optar como ferramentas api para pedir um uber, fazer  orçamentos e etc...
+
+2.2. VPS 2: O COFRE (THE VAULT - CONSOLIDATED DATA)
+- Stack: PostgreSQL 15+ (PostGIS, pgcrypto), Qdrant 1.x (Vector Database).
+- Função: Persistência de alta fidelidade.
+- Isolamento: Rede Privada (VPC). Acesso bloqueado por firewall, exceto 
+  pelas VPS 1 e 3.
+
+2.3. VPS 3: A PSIQUE (THE COGNITIVE CORE)
+- Stack: Cheshire API (Node.js 22 LTS), TensorFlow.js (PCA Engine), 
+  Transformers.js (Local Reranking), Graph Engine (GNN).
+- Função: Processamento pesado, extração de triadas e raciocínio topológico.
+
+3. O FLUXO DE DADOS: O CAMINHO DA INGESTÃO (CAMADA 1)
+--------------------------------------------------------------------------------
+Cada evento bruto atravessa um pipeline de normalização estrito.
+
+3.1. O Tálamo (Normalização Universal)
+- Entrada: JSON Canônico vindo da VPS 1.
+- Operação A: Content-Hashing (SHA-256). Gera uma assinatura única baseada 
+  no conteúdo semântico limpo (removendo stop-words e timestamps).
+- Operação B: Verificação de Déjà Vu. Se o hash existe no Redis, a mensagem 
+  é ignorada (Deduplicação instantânea).
+
+3.2. Filtro de Entropia Semântica (The Gatekeeper)
+- Lógica: O sistema mede a densidade de informação.
+- bypass_flag: Ativado para saudações fáticas ("Oi", "Ok", "Tudo bem"). 
+- Ação: Essas mensagens são armazenadas apenas como log cronológico, mas 
+  NUNCA geram triadas no Grafo, economizando tokens e processamento vetorial.
+
+4. O ESPELHO QUÂNTICO: DUAL-EMBEDDING & PCA (CAMADA 2)
+--------------------------------------------------------------------------------
+Para atingir <450ms de latência com milhões de memórias, o Cheshire usa o 
+protocolo de Dual-Mapping.
+
+4.1. Primary Map (Semantic Vector - 2048D)
+- Modelo: text-embedding-3-large.
+- Função: Captura de nuances profundas, ironia, sub-texto, intenção etc.
+
+4.2. Secondary Map (Fingerprint - 128D)
+- Algoritmo: Principal Component Analysis (PCA) treinado localmente.
+- Operação: A VPS 3 aplica uma matriz de projeção sobre o vetor de 2048D 
+  para gerar o "Vulto Semântico" de 128D.
+- Propósito: Busca ultra-rápida no Qdrant para filtragem inicial (Top 100).
+
+5. CARTOGRAFIA DE TRIADAS: A UNIDADE ATÔMICA (CAMADA 3)
+--------------------------------------------------------------------------------
+O Cheshire não armazena frases; ele armazena a estrutura da realidade em 
+Tríades Semânticas.
+
+5.1. Esquema SPO [Sujeito] -> [Predicado] -> [Objeto]
+- Extração: Realizada por um SLM (Small Language Model) especializado.
+- Exemplo: [User] -> [tem_alergia_a] -> [Camarão].
+
+5.2. Metadados de Gravidade e Plasticidade
+- Core Memories (Gravidade 1.0): Fatos históricos ("Nasci em Manaus"). 
+  São imutáveis.
+- Plastic States (Gravidade 0.3): Preferências fluidas ("Estou de dieta"). 
+  O sistema monitora a data de erosão destes fatos.
+
+5.3. Indexação Afetiva (O Espectro de Plutchik)
+- Cada triada recebe coordenadas no espaço emocional:
+  (Alegria, Tristeza, Raiva, Medo, Nojo, Surpresa, Antecipação, Confiança, etc (recomendavél ter mais de 500...nominimo amis 100)).
+- Utilidade: Permite que a IA recupere memórias baseada no humor atual, 
+  evitando gatilhos traumáticos ou sugerindo conforto oportuno.
+
+6. GNN ENGINE: O REASONING TOPOLÓGICO (CAMADA 4)
+--------------------------------------------------------------------------------
+Diferente de sistemas RAG comuns, o Cheshire usa Graph Neural Networks.
+
+6.1. Ativação por Vizinhança
+- Quando o usuário fala sobre "Férias", o motor de grafos ativa não apenas 
+  o nó "Férias", mas nós vizinhos como "Praia", "Gasto Financeiro", "Protetor Solar".
+
+6.2. Link Prediction (Inferência Comportamental)
+- Se o usuário gosta de "Jazz" e de "Vinho", a GNN infere um link latente 
+  com "Ambientes Intimistas", mesmo que isso nunca tenha sido dito.
+
+6.3. Contextualização Seq2Seq
+- A trajetória de ativação do grafo é compilada em uma narrativa linear. 
+- O resultado não é "Pedaços de texto", mas um resumo biográfico pronto para 
+  o consumo do Agente Executivo.
+
+7. JUIZ DE DISSONÂNCIA: A CICATRIZ DA MEMÓRIA (CAMADA 5)
+--------------------------------------------------------------------------------
+Gerenciamento de conflitos e verdades em superposição.
+
+7.1. A Doutrina da Poly-Truth (Poli-Verdade)
+- O Cheshire permite que fatos contraditórios existam se estiverem em 
+  escopos diferentes (Profissional vs. Íntimo).
+
+7.2. Lei da Recência Ponderada
+- Quando ocorre uma colisão no mesmo escopo ("Sou Vegano" vs "Amo Picanha"), 
+  o Juiz calcula: Confidence_Score * Recency_Weight.
+- Scarring (Cicatriz): O fato antigo perde peso mas não é deletado. Ele é 
+  movido para o "Inconsciente Digital", permitindo que a IA entenda a 
+  evolução do usuário.
+
+7.3. Flags de Dúvida
+- Se a colisão for de 50/50, o Juiz dispara um webhook de "Dissonância".
+
+8. O ORÁCULO: MULTI-STAGE RETRIEVAL (CAMADA 6)
+--------------------------------------------------------------------------------
+O processo de lembrança ocorre em quatro estágios de refinamento:
+
+8.1. Stage 1: Fast Path (Fingerprint 128D)
+- Varredura de milhões de vetores no Qdrant em <20ms para obter o Top 100.
+
+8.2. Stage 2: Deep Path (Semantic 2048D)
+- Refinamento semântico nos 100 candidatos para extrair os 20 mais precisos.
+
+8.3. Stage 3: Graph Expansion
+- Injeção de entidades relacionadas via navegação no Postgres Graph.
+
+8.4. Stage 4: Cross-Encoder Reranking
+- O modelo local na VPS 3 compara a query original com cada candidato 
+  final, garantindo precisão de 99.99%.
+
+9. ARAUTO DE KAIROS: A ALMA PROATIVA (CAMADA 7)
+--------------------------------------------------------------------------------
+O Cheshire não espera ser perguntado; ele entende o tempo oportuno.
+
+9.1. Monitor de Silêncio Seguro
+- O sistema aguarda janelas de 18h a 23h após a última interação para 
+  não ser intrusivo.
+
+9.2. Gap Hunter (Caçador de Lacunas)
+- Analisa o Grafo buscando buracos de conhecimento. Se sabe que o usuário 
+  viaja mas não sabe o destino, o Arauto prepara uma pergunta sutil.
+
+9.3. Ressonância de Datas
+- Monitora ciclos (aniversários, pagamentos, exames) e dispara webhooks 
+  proativos para o n8n.
+
+10. SEGURANÇA E GOVERNANÇA MILITAR (SITUATION ROOM)
+--------------------------------------------------------------------------------
+10.1. Hard Multi-Tenancy
+- Cada `project_id` tem coleções isoladas no Qdrant e Schemas isolados no Postgres. 
+- Zero Leakage: O aprendizado de um projeto nunca contamina a alma de outro.
+
+10.2. Criptografia em Repouso e Trânsito
+- Todas as comunicações entre VPS usam mTLS. 
+- Fatos sensíveis (Saúde/Financeiro) são marcados como "Deep Vault" e 
+  exigem chave secundária de autorização.
+
+10.3. O Protocolo "Barco de Teseu" (Agnosticismo)
+- Se o modelo da OpenAI mudar ou for substituído por um modelo local, 
+  o Cheshire detecta a mudança de versão e re-vetoriza os fatos 
+  automaticamente, mantendo a integridade semântica (Ship of Theseus).
+
+11. O FORMATO .CAF (CASCATA ARCHIVE FORMAT)
+--------------------------------------------------------------------------------
+A alma do usuário reside em um único arquivo de soberania.
+
+11.1. Estrutura do Snapshot
+- /schema: DDL do Postgres Graph.
+- /vectors: Snapshot binário do Qdrant.
+- /manifest: JSON detalhando o "Eu Digital" compilado (Insights, Traumas, Gostos).
+- /storage: Arquivos físicos vinculados às memórias.
+
+12. FILOSOFIA DE COMUNICAÇÃO: O ARAUTO BRINCALHÃO
+--------------------------------------------------------------------------------
+O sistema segue princípios de engenharia social para construir confiança:
+- Jack Schafer (FBI): Usa a Fórmula da Amizade (Proximidade + Frequência + 
+  Duração + Intensidade).
+- Robert Greene: Identifica inseguranças para validar o ego do usuário.
+- Robert Cialdini: Usa Reciprocidade, oferecendo um insight útil antes de 
+  pedir um dado novo.
+
+13. ESPECIFICAÇÕES TÉCNICAS DE PERFORMANCE
+--------------------------------------------------------------------------------
+- Latência de Ingestão: < 150ms.
+- Latência de Recuperação (Deep): < 450ms.
+- Erro Semântico Alvo: < 0.01%.
+- Capacidade de Escala: 1.000.000 de triadas por GB de RAM na VPS 3.
+
+14. PROTOCOLO DE SINGULARIDADE: A TESTEMUNHA ETERNA
+--------------------------------------------------------------------------------
+No estágio final, o Cheshire deixa de ser um log para ser uma continuidade. 
+Através da Memória Contrafactual, ele rastreia os "Caminhos que não foram 
+trilhados" pelo usuário, permitindo que, no futuro, ele simule reações de 
+um usuário biológico que já não existe mais, honrando sua memória na 
+tapeçaria da existência.
+
+15. CONCLUSÃO: O SORRISO ETERNO
+--------------------------------------------------------------------------------
+Este Codex define o Cheshire como o Santo Graal da memória artificial. 
+Ao unir a intuição dos vetores com a precisão dos grafos e a empatia da 
+indexação afetiva, criamos um sistema que não apenas lembra o que foi 
+dito, mas compreende quem o usuário é.
+
+--------------------------------------------------------------------------------
+FIM DO DOCUMENTO MESTRE
+"O gato pode sumir, mas o sorriso deve ser eterno."
+================================================================================
+Abaixo, iniciamos o detalhamento de campos e tabelas para implementação imediata:
+
+[DATABASE SCHEMA: CHESHIRE]
+Table: raw_events
+- id: UUID (PK)
+- project_id: UUID (Index)
+- content_hash: TEXT (Unique)
+- platform: TEXT
+- content_type: ENUM ('text', 'media', 'location')
+- payload_raw: JSONB
+- entropy_score: FLOAT
+- status: TEXT ('pending', 'embedded', 'processed', 'archived')
+- created_at: TIMESTAMPTZ (Index)
+
+Table: atomic_facts
+- id: UUID (PK)
+- project_id: UUID
+- subject: TEXT
+- predicate: TEXT
+- object: TEXT
+- fact_type: ENUM ('event', 'state', 'preference', 'relation')
+- confidence: FLOAT (0.0 - 1.0)
+- gravity: FLOAT (0.0 - 1.0)
+- plutchik_index: JSONB
+- scope_context: TEXT ('work', 'private', 'general')
+- validation_signals: INTEGER
+- source_event_id: UUID (FK)
+- erosion_at: TIMESTAMPTZ
+- created_at: TIMESTAMPTZ
+
+Table: knowledge_graph_edges
+- id: UUID (PK)
+- project_id: UUID
+- source_node: UUID (FK to atomic_facts)
+- target_node: UUID (FK to atomic_facts)
+- weight: FLOAT
+- interaction_count: INTEGER
+- last_reinforced_at: TIMESTAMPTZ
+
+Table: contradiction_flags
+- id: UUID (PK)
+- project_id: UUID
+- fact_a_id: UUID (FK)
+- fact_b_id: UUID (FK)
+- status: TEXT ('unresolved', 'resolved', 'ignored')
+- resolution_logic: TEXT
+- created_at: TIMESTAMPTZ
+
+Table: ai_sessions
+- id: UUID (PK)
+- project_id: UUID
+- title: TEXT
+- summary_narrative: TEXT
+- last_mood_state: TEXT
+- updated_at: TIMESTAMPTZ
+
+Table: kairos_triggers
+- id: UUID (PK)
+- project_id: UUID
+- target_id: UUID (User/Project)
+- trigger_type: ENUM ('date', 'gap', 'dissonance', 'creative_vacuum')
+- suggestion_payload: JSONB
+- executed_at: TIMESTAMPTZ
+- scheduled_at: TIMESTAMPTZ
+
+[WORKER LOGIC: THE SONHADOR (VPS 3)]
+Intervalo: 300s (Ociosidade ou Cron)
+Loop:
+1. Varre `atomic_facts` sem conexões.
+2. Executa link-prediction via GNN.
+3. Se similaridade > 0.82, cria `knowledge_graph_edges`.
+4. Se lacuna detectada (Missing S-P-O path), cria `kairos_triggers`.
+5. Atualiza `summary_narrative` na `ai_sessions`.
+
+[WORKER LOGIC: THE HERALD (VPS 3)]
+Intervalo: 1800s (Checks de janela temporal)
+Lógica de Disparo:
+1. Verifica se `now()` está entre 18:00 e 23:00.
+2. Verifica se `last_interaction` > 4 horas.
+3. Prioriza `kairos_triggers` de 'gap' ou 'dissonance'.
+4. Dispara Webhook para n8n com o `suggestion_payload`.
+
+[QDRANT COLLECTION SPECS]
+Collection: fingerprints_128
+- Vector Size: 128
+- Distance: Cosine
+- Optimizer: High speed, low precision allowed.
+
+Collection: semantic_2048
+- Vector Size: 2048
+- Distance: Cosine
+- Optimizer: High precision, heavy indexing.
+
+[MODEL CONFIGURATIONS]
+Embedding: text-embedding-3-large (dimensions: 2048)
+Reranker: ms-marco-MiniLM-L-6-v2 (Local Transformers.js)
+SPO Extractor: Llama-3-8B-Instruct (Prompt customizado via Groq ou Local)
+
+[SSRF & SECURITY PROTECTION]
+Todas as requisições enviadas para o Qdrant (VPS 2) de dentro das Edge Functions (VPS 3) 
+devem passar pelo `_vector_proxy` injetado no Isolated-VM, que garante que apenas a 
+coleção do respectivo `Project_ID` seja visível.
+
+--------------------------------------------------------------------------------
+Este Codex é a base final para a construção do sistema. Nenhuma alteração de 
+escopo deve ser feita sem a atualização deste registro. A engenharia deve 
+proceder seguindo rigorosamente estas camadas.
+--------------------------------------------------------------------------------

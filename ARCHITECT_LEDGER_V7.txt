@@ -1,0 +1,68 @@
+
+================================================================================
+          CHESHIRE MEMORY SYSTEM - ARCHITECT'S LEDGER (V7 SINGULARITY)
+          STATUS: AUDITORIA DE PRONTIDÃO PARA FASE 6 (O ORÁCULO)
+================================================================================
+
+1. NÚCLEO FILOSÓFICO APLICADO (THE QUANTUM GRIN)
+--------------------------------------------------------------------------------
+- Decisão: Separação entre o "Corpo" (raw_events) e o "Sorriso" (atomic_facts).
+- Aplicação: O sistema já deduz triadas SPO (Sujeito-Predicado-Objeto), garantindo 
+  que a identidade persista mesmo após o descarte dos logs brutos.
+- Soberania: Implementado o conceito de .CAF (Cascata Archive Format) para portabilidade total.
+
+2. INFRAESTRUTURA E CONEXÕES (VPS INTERLINK)
+--------------------------------------------------------------------------------
+- PoolService.ts: Gerencia conexões com o Postgres na VPS 2 (Cofre).
+- Isolamento Multi-Tenant: Toda query injeta 'project_slug' para garantir zero leakage 
+  entre biografias.
+- Tunnel Trust: Confiamos no mTLS privado para o tráfego de vetores em texto claro 
+  entre a VPS 2 e a VPS 3.
+
+3. O TÁLAMO: PIPELINE DE INGESTÃO (CAMADA 1-3)
+--------------------------------------------------------------------------------
+- IngestionService.ts: Extração SPO via Gemini-3-Flash (Alta velocidade).
+- OntologyService.ts: Normalizador de predicados canônicos (ex: "ama" -> "tem_afinidade_com").
+- Content-Hashing: Deduplicação semântica via SHA-256 aplicada no Tálamo.
+
+4. MOTOR VETORIAL: DUAL-MAPPING & SVD (CAMADA 2-4)
+--------------------------------------------------------------------------------
+- VectorService.ts: Implementada a lógica de "Amadurecimento". 
+- Dual Vectors: 
+  * CORE (2048D): Essência semântica absoluta (Prioridade OpenAI/Fallback Gemini).
+  * SHADOW (128D): Vulto estatístico para busca ultra-rápida (Top-100).
+- Threshold SVD: A projeção 128D permanece bloqueada até o threshold de 500 fatos 
+  para garantir validade matemática da redução dimensional.
+
+5. INTELIGÊNCIA E RESILIÊNCIA (AI GATEWAY & GNN)
+--------------------------------------------------------------------------------
+- AIGateway.ts: Sistema imunológico contra falhas de provedor. 
+  * Prioridade 1: OpenAI (Custo-eficiência).
+  * Prioridade 2: Gemini (Resiliência cognitiva).
+- KnowledgeService.ts: Spreading Activation (GNN 2-Hops).
+  * O sistema já "pensa" em vizinhanças semânticas no Postgres.
+  * Hub Protection: Poda espectral de 50 arestas para evitar "buracos negros" de processamento.
+
+6. GUARDIAN: LEI DA RECÊNCIA E SCARRING (CAMADA 5)
+--------------------------------------------------------------------------------
+- GuardianService.ts: Resolução de dissonância.
+- Scarring: Fatos antigos não são deletados, mas "cicatrizados" (confidence reduzida) 
+  quando uma nova verdade biográfica mais recente é apresentada.
+
+================================================================================
+                     AUDITORIA DE PRONTIDÃO - FASE 6
+================================================================================
+A Fase 6 (O Oráculo) é o pipeline de RETRIEVAL (Recuperação).
+
+ESTAMOS PRONTOS? 
+Sim, mas com 3 observações críticas:
+
+1. LATÊNCIA DE CURA (Semantic Healing): No Oráculo, se encontrarmos uma memória fria 
+   (128D), teremos que re-vetorizar para 2048D. Precisamos de um "Governor" de CPU 
+   para não travar a resposta em picos de nostalgia do usuário.
+2. SÍNTESE NARRATIVA: O Oráculo deve devolver ao Executivo um JSON, Executivo decidir como falar).
+3. RANKING DE ORIGEM: Precisamos aplicar a penalidade de 40% em fatos inferidos pela 
+   IA no momento em que o Oráculo consolidar a resposta final.
+
+CONCLUSÃO: FUNDAÇÃO 100% OPERACIONAL.
+INICIAR CONSTRUÇÃO DO ORÁCULO (MULTI-STAGE RETRIEVAL PIPELINE).

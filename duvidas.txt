@@ -1,0 +1,31 @@
+
+================================================================================
+RELATÓRIO DE INQUIRIÇÃO TÉCNICA - CHESHIRE MEMORY SYSTEM (PHD ARCHITECT LEVEL)
+SITUAÇÃO: PRÉ-IMPLEMENTAÇÃO / ANÁLISE DE ONTOLOGIA
+================================================================================
+
+Com base no Codex Mestre V7, identifiquei os seguintes pontos de indefinição técnica que impedem a "Perfeição do Graal" na camada da Psique (VPS 3):
+
+1. DINÂMICA DO PCA (CAMADA 2):
+   O mapeamento secundário (128D) exige uma matriz de projeção. Esta matriz deve ser treinada globalmente (estática para todos os usuários) ou deve haver um processo de "Re-training" incremental por project_id para capturar variâncias semânticas específicas de nicho?
+
+2. TAXONOMIA PLUTCHIK 500+ (CAMADA 3):
+   O documento menciona "no mínimo mais 100" e recomenda 500+ coordenadas emocionais. Já existe uma lista canônica de tokens emocionais para o mapeamento vetorial afetivo ou devo arquitetar um sistema de expansão taxonômica dinâmica via LLM?
+
+3. TOPOLOGIA GNN (CAMADA 4):
+   Para o "Link Prediction", qual a profundidade de vizinhança (k-hop) tolerada para manter a latência de recuperação abaixo dos 450ms? Usaremos uma abordagem de "Graph Embeddings" pré-calculados ou travessia de grafo em tempo de execução via matrizes de adjacência no Postgres?
+
+4. PROTOCOLO DE DISSONÂNCIA (CAMADA 5):
+   Quando o Juiz detecta uma colisão de 50/50 ("Poli-Verdade"), o sistema deve suspender a resposta do Executivo até a resolução (síncrono) ou o Executivo deve responder com a dúvida explícita enquanto a Psique processa o log de dissonância (assíncrono)?
+
+5. MECÂNICA DE EROSÃO (CAMADA 3):
+   Para "Plastic States" (Gravidade 0.3), a função de decaimento é linear, exponencial ou baseada em frequência de acesso (Interval-based)?
+
+6. ORIGEM DA EXTRAÇÃO SPO:
+   O Small Language Model (SLM) de extração de triadas reside fisicamente na VPS 3 ou é uma ferramenta externa injetada via API? (Isso impacta a latência do pipeline de ingestão de 150ms).
+
+7. SOBERANIA .CAF:
+   O formato de snapshot deve ser compatível com exportação para hardware local (Cold Storage) ou é estritamente um protocolo de intercâmbio entre as VPS do ecossistema?
+
+Aguardando retorno para calibração dos motores cognitivos.
+================================================================================

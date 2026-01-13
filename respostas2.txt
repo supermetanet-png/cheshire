@@ -1,0 +1,33 @@
+================================================================================
+RESOLUÇÃO TÉCNICA DE ENGENHARIA - CHESHIRE MEMORY SYSTEM (V7 SINGULARITY)
+STATUS: DEFINIÇÕES DE INFRAESTRUTURA COGNITIVA CONSOLIDADAS
+================================================================================
+
+Com base na visão de soberania e liberdade tecnológica, as definições para os motores de processamento da VPS 3 são:
+
+1. ORQUESTRAÇÃO DE INFERÊNCIA (API GATEWAY AGNOSTICO):
+   - RESOLUÇÃO: O sistema não terá um SLM hardcoded. Implementaremos um "AI Gateway Modular" configurável via Dashboard.
+   - FUNCIONAMENTO: O usuário cadastrará a URL (OpenAI, Grok, Gemini, Groq, local GPT-OSS), a API Key e o nome do modelo para as tarefas de extração SPO, expansão taxonômica e síntese narrativa.
+   - EXCEÇÃO: Apenas o motor de Embeddings pode ser mantido fixo (ou configurado separadamente) para evitar inconsistência vetorial (re-indexação em massa). Isso garante que o sistema suporte desde modelos de 70B em GPUs próprias até APIs ultrarápidas de terceiros sem troca de código.
+
+2. PERSISTÊNCIA DA MATRIZ DE PROJEÇÃO (PCA/SVD):
+   - RESOLUÇÃO: Armazenamento Híbrido. 
+   - PROTOCOLO: A matriz (artefato binário) será salva no 'metadata' do projeto na VPS 2 (Cascata DB) para garantir que o backup .CAF seja completo. Contudo, ao iniciar, a VPS 3 carrega essa matriz para a RAM local. Se a matriz for atualizada, o Worker dispara um sinal de "Refresh" para o cache de memória da Psique.
+
+3. CONTRATO DO "HIDDEN SIGNAL" (PSIQUE -> n8n):
+   - RESOLUÇÃO: Chave reservada `_cascata_guardian` dentro do JSON de resposta.
+   - MOTIVO: Facilita o parseamento direto no n8n ou em qualquer Agente Externo sem a necessidade de manipular headers HTTP complexos em fluxos de integração variados. Este objeto conterá as flags de `dissonance_detected`, `gap_found` e o `suggested_prompt`.
+
+4. MECÂNICA DE REFORÇO DE GRAFO (HYBRID REINFORCEMENT):
+   - RESOLUÇÃO: Reforço Passivo (Read) e Ativo (Validation).
+   - LÓGICA: Cada 'Retrieval' bem-sucedido incrementa o `interaction_count` (fator de recência/popularidade). O `weight` (força da verdade) só é alterado mediante um 'Validation Signal' explícito ou detecção de repetição factual de alta entropia.
+
+5. TRANSIÇÃO PARA O "INCONSCIENTE DIGITAL" (EROSÃO):
+   - RESOLUÇÃO: Cold Storage Tiering.
+   - PROTOCOLO: Quando a erosão atinge o threshold crítico, o fato é deletado da coleção Qdrant 2048D (alto custo de RAM/IO), mas permanece na coleção Qdrant 128D (baixo custo para recall histórico) e no Postgres com a flag `is_cold_memory: true`. Isso permite que a IA "lembre que esqueceu" se for provocada especificamente.
+
+6. CONCORRÊNCIA NO TREINAMENTO SVD (HOT-SWAP):
+   - RESOLUÇÃO: Shadow Process com Atomic Swap.
+   - PROTOCOLO: O re-treinamento ocorre em um processo isolado (Worker background). Durante o cálculo, a ingestão continua usando a matriz antiga. Assim que a nova matriz é validada, o sistema realiza um "Hot-Swap" na RAM. Zero downtime. Zero travamento de ingestão.
+
+--------------------------------------------------------------

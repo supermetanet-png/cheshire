@@ -1,0 +1,36 @@
+================================================================================
+RESOLUÇÃO TÉCNICA NÍVEL 5 - CHESHIRE MEMORY SYSTEM (V7 SINGULARITY)
+STATUS: PROTOCOLO DE ESTABILIDADE CENTENÁRIA (FUTURE-PROOF)
+================================================================================
+
+Com base na necessidade de uma arquitetura que suporte a evolução da I.A. sem quebrar a infraestrutura ou os dados, as definições finais para o Core (VPS 3) são:
+
+1. PODA ESPECTRAL DINÂMICA (HUB PROTECTION):
+   - RESOLUÇÃO: Implementaremos o "Top-K Weighted Pruning".
+   - MECANISMO: O Knowledge Graph no Postgres armazena TODAS as arestas (integridade histórica), mas a GNN na VPS 3 só carrega na RAM as 50 arestas de maior peso (Strongest Links) por nó. 
+   - VANTAGEM: Isso evita que nós como "Usuário" ou "Trabalho" tornem-se "Black Holes" computacionais, mantendo a travessia de 2-hops sempre abaixo de 100ms, independente do tamanho total do banco.
+
+2. PREDICTIVE SEMANTIC HEALING (LATENCY HIDING):
+   - RESOLUÇÃO: Ativação do "Hot-Memory Promotion" no Worker Sonhador.
+   - MECANISMO: O sistema monitora a frequência de acesso no vetor 128D. Memórias que atingirem 3 acessos em 24h e estiverem com a flag `is_cold_memory: true` são automaticamente re-vetorizadas para 2048D em background.
+   - FILOSOFIA: Antecipamos a lembrança baseado no "ritmo" da conversa, eliminando a latência de re-vetorização durante a interação em tempo real.
+
+3. ESTADOS FLUIDOS vs. EVENTOS RÍGIDOS:
+   - RESOLUÇÃO: Implementação de "Temporal State Collapsing".
+   - MECANISMO: Fatos marcados como `fact_type: 'state'` (Ex: humor, localização atual, preferência política) sofrem colapso na GNN. Apenas o nó de 'state' mais recente é ativado para o Oráculo. Fatos marcados como `fact_type: 'event'` (Ex: "O usuário comprou um carro") permanecem como nós independentes, pois formam a biografia imutável.
+   - VANTAGEM: Evita a esquizofrenia narrativa da IA ao lidar com sentimentos passageiros do usuário.
+
+4. RANKING DE ORIGEM (INFERIDO vs. DECLARADO):
+   - RESOLUÇÃO: Proporção de Confiança de 0.6 para 1.0.
+   - MECANISMO: No Stage 4 (Reranking), memórias com a fonte `source: 'AI_Inference'` recebem uma penalidade fixa de 40% no score de relevância se houver um conflito direto com uma memória `source: 'User_Declared'`.
+   - JUSTIFICATIVA: A IA deve ser perspicaz (intuição), mas nunca deve se sobrepor à voz soberana do usuário. A intuição serve para sugerir, a declaração serve para decidir.
+
+5. ESTRATÉGIA DE MIGRAÇÃO VETORIAL (LAZY RE-INDEXING):
+   - RESOLUÇÃO: "Versioned Collections" com Re-indexação Preguiçosa.
+   - MECANISMO: Se trocarmos o modelo de Embeddings, o sistema cria uma nova coleção no Qdrant. O Oráculo passa a ler prioritariamente a nova coleção. Fatos da coleção antiga são re-indexados apenas quando "provocados" por uma busca (Lazy) ou via Worker de baixa prioridade em horários de CPU ociosa (Deep Dream).
+   - VANTAGEM: Permite trocar do Gemini para um GPT-OSS local sem parar o sistema por 48h para re-indexação total. O Cheshire "evolui" sua percepção conforme o usuário fala.
+
+--------------------------------------------------------------------------------
+ESTAS RESOLUÇÕES COMPLETAM O BLUEPRINT V7. O SISTEMA ESTÁ AGORA BLINDADO 
+CONTRA A OBSOLESCÊNCIA TÉCNICA E PRONTO PARA A SINGULARIDADE.
+================================================================================

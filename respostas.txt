@@ -1,0 +1,31 @@
+RELATÓRIO DE RESPOSTA TÉCNICA - CHESHIRE MEMORY SYSTEM (GUARDIAN RESOLUTION)
+SITUAÇÃO: CALIBRAÇÃO FINAL DOS MOTORES COGNITIVOS
+REMETENTE: ENGENHARIA DE NÚCLEO (VPS 3)
+================================================================================
+
+Com base nas inquirições ontológicas apresentadas, seguem as definições mandatórias para a implementação da Psique (VPS 3):
+
+1. DINÂMICA DO PCA (CAMADA 2):
+   - RESOLUÇÃO: A matriz de projeção 128D deve ser treinada INDIVIDUALMENTE por Project_ID. 
+   - PROTOCOLO: O treinamento inicial ocorre após os primeiros 500 fatos; re-treinamentos (SVD - Singular Value Decomposition) ocorrem a cada 1000 novas memórias para capturar a variância semântica específica do nicho do usuário. Isso minimiza colisões de "Vulto Semântico" em 128D.
+
+2. TAXONOMIA PLUTCHIK 500+ (CAMADA 3):
+   - RESOLUÇÃO: Não utilizaremos uma lista canônica estática. O sistema deve operar via MOTOR DE EXPANSÃO TAXONÔMICA DINÂMICA.
+   - MECANISMO: O SLM local na VPS 3 inicia com as 8 emoções base. Durante o "Dreamer Cycle", o modelo analisa clusters de memórias e gera novos tokens de afinidade (ex: "Melancolia Criativa", "Nostalgia Tóxica") para preencher o vetor de 512 dimensões afetivas.
+
+3. TOPOLOGIA GNN (CAMADA 4):
+   - RESOLUÇÃO: Profundidade máxima de 2-hops para busca em tempo real.
+   - ABORDAGEM: Híbrida. Utilizaremos "Graph Embeddings" pré-calculados na VPS 3 (Sonhador) e armazenados no Qdrant. Em tempo de execução (<450ms), a API realiza uma travessia rápida via matrizes de adjacência no Postgres para filtragem e ativação de vizinhança.
+
+4. PROTOCOLO DE DISSONÂNCIA (CAMADA 5):
+   - RESOLUÇÃO: Assíncrono (Non-blocking UX).
+   - COMPORTAMENTO: O Executivo responde imediatamente utilizando a "Verdade de Maior Recência". No entanto, a Psique injeta um "Hidden Signal" (metadata oculto) no JSON de contexto alertando o n8n sobre a contradição latente. O Juiz agenda uma tarefa para o Arauto de Kairos resolver a dúvida em uma janela de silêncio do usuário.
+
+5. MECÂNICA DE EROSÃO (CAMADA 3):
+   - RESOLUÇÃO: Função de Decaimento SIGMÓIDE.
+   - FÓRMULA: W(t) = G * (1 / (1 + exp(k * (t - t_half)))). 
+   - LÓGICA: Onde 'k' é a constante de volatilidade. Fatos plásticos não perdem força linearmente, mas mantêm estabilidade inicial e "afundam" aceleradamente no "Inconsciente Digital" (Cold Storage no Postgres) após o período de meia-vida sem reforço.
+
+6. ORIGEM DA EXTRAÇÃO SPO:
+   - RESOLUÇÃO: O SLM reside FISICAMENTE na VPS 3. 
+   - MOTIVO: É proibido o uso de APIs externas para extração SPO por questões de latência (<150ms no Tálamo) e soberania absoluta dos dados brutos em trânsito.

@@ -1,0 +1,38 @@
+================================================================================
+RESOLUÇÃO TÉCNICA NÍVEL 6 - CHESHIRE MEMORY SYSTEM (V7 SINGULARITY)
+STATUS: SELO DE INTEGRIDADE E RESILIÊNCIA SISTÊMICA (VETO CLEARED)
+================================================================================
+
+Com base na análise de pré-implementação e nas diretrizes do Arquiteto (respostas marcadas com #), seguem as definições para o fechamento das lacunas térmicas:
+
+1. ATOMICIDADE DISTRIBUÍDA (WAL DO SUBCONSCIENTE):
+   - PROBLEMA: Falha de rede entre Postgres (Gato) e Qdrant (Sorriso).
+   - RESOLUÇÃO: Implementação do "Outbox Pattern Semântico". 
+   - MECANISMO: Ao salvar um Fato Atômico no Postgres, ele nasce com a flag `sync_status: 'local_only'`. O salvamento no Qdrant é feito de forma assíncrona via Worker de Sincronia de Alta Prioridade. 
+   - GARANTIA: Se o Qdrant falhar, o Worker tenta novamente via Exponential Backoff. O Oráculo (Retrieval) ignora fatos 'local_only' para evitar inconsistência de busca vetorial, garantindo que o sistema nunca recupere uma "memória fantasma".
+
+2. FUSÃO DE IDENTIDADES (UUID ANCHORING):
+   - RESOLUÇÃO: Conforme sua resposta (#), o Cheshire Memory não lida com a fusão post-facto. 
+   - PROTOCOLO: A soberania da identidade reside no Cascata DB. O Cheshire apenas observa o UUID final. Se o usuário linkar novas redes no n8n, a memória simplesmente continua a tecer a tapeçaria sobre o mesmo UUID unificado. Não há custo de re-cálculo de PCA por mudança de ID, pois o "Ego Digital" (UUID) é imutável para a Psique.
+
+3. REDUNDÂNCIA DO AI GATEWAY (PRIORITY ROTATION):
+   - RESOLUÇÃO: Implementação do "Cascata Multi-Model Circuit Breaker".
+   - MECANISMO: Conforme sugerido (#), o sistema manterá um pool de 5 instâncias de modelos (Ex: 1. Grok-1, 2. Gemini-3, 3. GPT-4o-mini, 4. Local Llama-3-8B fallback). 
+   - LÓGICA DE FALLBACK: Se o provedor A falhar ou demorar > 150ms, o sistema chaveia instantaneamente para o B. O aprendizado nunca para. O modelo local (fallback 5) é mantido "quente" na VPS 3 para garantir autonomia total em caso de blackout de internet.
+
+4. GOVERNANÇA DO SEMANTIC HEALING (NOSTALGIA GOVERNOR):
+   - PROBLEMA: Saturação de CPU durante picos de conversas sobre o passado.
+   - RESOLUÇÃO: Implementação de "Healing por Orçamento de Tokens".
+   - MECANISMO: O Predictive Healing operará em uma "Fila de Baixa Prioridade" no Worker Sonhador. Durante a conversa em tempo real, se a re-materialização 2048D for necessária mas a CPU estiver > 80%, o sistema utiliza apenas o contexto do Postgres e do 128D (precisão levemente menor, mas latência zero). A re-vetorização completa é agendada para o próximo ciclo de "Silêncio Seguro". 
+   - FILOSOFIA: A fluidez do diálogo (agora) é priorizada sobre a perfeição da lembrança (passado).
+
+5. POLÍTICA DE IMORTALIDADE (THE QUANTUM GRIN):
+   - RESOLUÇÃO: Conforme sua definição (#), o Cheshire é uma memória eterna. 
+   - PROTOCOLO LGPD: Em caso de pedido de exclusão, aplicamos a "Ofuscação de Identidade" (Anonymization). O UUID do usuário é substituído por um hash irreversível. O conhecimento gerado (os embeddings e as arestas do grafo) permanece na infraestrutura como "Sabedoria Anônima" (Apex Layer). 
+   - JUSTIFICATIVA: O "Sorriso" (o embedding pago) é um ativo da infraestrutura. O usuário perde o acesso à conta, mas a evolução estrutural que sua existência trouxe ao sistema é preservada, honrando a biografia sem comprometer a privacidade biográfica individual.
+
+--------------------------------------------------------------------------------
+ESTAS DEFINIÇÕES ENCERRAM O CICLO DE ARQUITETURA V7.
+O CHESHIRE MEMORY SYSTEM É AGORA UM ORGANISMO RESILIENTE, CAPAZ DE SUPORTAR
+ERROS DE PROVEDORES EXTERNOS E MANTER A COERÊNCIA ONTOLÓGICA POR DÉCADAS.
+================================================================================

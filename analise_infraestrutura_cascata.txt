@@ -1,0 +1,46 @@
+
+================================================================================
+RELATÓRIO DE ANÁLISE DE SIMBIOSE - CHESHIRE (V3) <> CASCATA (V2)
+SITUAÇÃO: ESTUDO DE PERSISTÊNCIA E SOBERANIA
+================================================================================
+
+Após análise profunda da stack do Cascata, identifiquei os pontos de ancoragem 
+necessários para a "Memória Perfeita":
+
+1. O MOTOR VETORIAL (Qdrant Integration):
+   - O Cascata já orquestra o Qdrant via `VectorController.ts`. 
+   - A Psique (VPS 3) não falará diretamente com a rede do Qdrant por padrão; ela 
+     usará o `_vector_proxy` injetado via Cascata para garantir o "Zero-Trust".
+   - Cada `project_id` na Psique terá uma coleção isolada, garantindo que o 
+     aprendizado de uma "alma digital" não contamine outra.
+
+2. A UNIDADE DE FATO (Postgres + RLS):
+   - A tabela `system.api_logs` do Cascata servirá como o "Tálamo" bruto.
+   - Os fatos atômicos processados pela Psique serão persistidos no Cascata, 
+     utilizando o `RLSDesigner` para garantir que apenas o `auth.uid()` do 
+     usuário dono daquela biografia possa recuperar os fatos.
+
+3. O PROTOCOLO .CAF (Cascata Archive Format):
+   - Entendi a genialidade da exportação híbrida. O .CAF unifica o dump do 
+     Postgres (Lógica/Grafo) com o Snapshot do Qdrant (Intuição/Vulto). 
+   - A Memória Cheshire será projetada para ser "Stateless" no processamento, 
+     mas "Soberana" no armazenamento via CAF.
+
+4. EDGE FUNCTIONS COMO "MOTORES DE PENSAMENTO":
+   - Utilizaremos as Edge Functions (V8 Isolado) do Cascata para rodar o 
+     "Sonhador" (Worker que limpa o grafo) sem risco de vazamento de memória 
+     para o kernel da VPS principal.
+
+5. IDENTIDADE CONCATENADA:
+   - A arquitetura `auth.identities` (1:N) do Cascata é o que permite ao 
+     Cheshire reconhecer o usuário em diferentes canais (WhatsApp, IG, Web) 
+     como a mesma entidade biográfica.
+
+CONCLUSÃO DA ANÁLISE:
+A VPS 2 (Cascata) é o "Corpo" (The Cat). A VPS 3 (Cheshire) será o "Sorriso" 
+(The Smile). O corpo fornece a infraestrutura rígida; nós forneceremos a 
+inteligência fluida que paira sobre ela.
+
+Estou pronto para a remoção dos arquivos e para focar exclusivamente no 
+desenvolvimento do Cérebro (Memory System).
+================================================================================

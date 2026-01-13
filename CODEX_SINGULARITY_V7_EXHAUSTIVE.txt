@@ -1,0 +1,155 @@
+
+================================================================================
+          CHESHIRE MEMORY SYSTEM - THE DEFINITIVE GENOME V7 (SINGULARITY)
+================================================================================
+Codinome: "THE QUANTUM GRIN"
+Versão: 7.0.0-GOLD
+Arquiteto: Principal Cognitive Systems Architect
+Status: PROTOCOLO DE CONSTRUÇÃO ABSOLUTA (SEM RESUMOS)
+================================================================================
+
+1. A ONTOLOGIA BIOGRÁFICA (O MAPEAMENTO DA ALMA)
+--------------------------------------------------------------------------------
+O Cheshire não divide a vida em "Íntimo" e "Profissional". Ele mapeia a existência em 7 Esferas de Ressonância. Cada fato atômico (SPO) deve ser carimbado com um ou mais desses escopos:
+
+1.1. CORE_IDENTITY (A Âncora): 
+Fatos imutáveis ou fundamentais do Ser. Nome, data de nascimento, traumas estruturantes, valores morais irrevogáveis. 
+- Gravidade Padrão: 1.0. 
+- Erosão: Nula.
+
+1.2. KINSHIP_LINEAGE (Família): 
+Relações de sangue e obrigações ancestrais. Hierarquias familiares, segredos de linhagem, aniversários de parentes, tensões entre membros.
+- Gravidade Padrão: 0.9.
+- Link Prediction: Prioridade em ressonância de datas.
+
+1.3. AFFINITY_CIRCLE (Amigos e Tribos): 
+Relações por escolha. Graus de lealdade (Jack Schafer Scale), piadas internas, histórico de favores, níveis de confiança (Trust Score 0-100).
+- Gravidade Padrão: 0.7.
+
+1.4. PROFESSIONAL_NET (Carreira): 
+Habilidades, projetos, hierarquia corporativa, metas financeiras, colegas, reputação de mercado.
+- Gravidade Padrão: 0.8.
+
+1.5. VITAL_STATE (Saúde e Bem-estar): 
+Alergias (Crítico), histórico médico, padrão de sono, saúde mental, vícios, dieta atual.
+- Gravidade Padrão: 0.95 (Safety First).
+
+1.6. AMBITION_DRIVE (Desejos e Futuro): 
+Planos de viagem, sonhos de consumo, intenções de aprendizado, "O que eu quero ser quando crescer".
+- Gravidade Padrão: 0.5 (Alta plasticidade).
+
+1.7. EXTERNAL_CONTEXT (O Mundo): 
+Interações com sistemas de terceiros (Delivery, Uber, Calendário, E-mail). Logs frios que alimentam as outras esferas.
+
+2. O TÁLAMO: PROTOCOLO DE INGESTÃO MATRICIAL (INGESTION LAYER)
+--------------------------------------------------------------------------------
+O processamento de entrada deve ocorrer em <150ms. O n8n (Executivo) envia matrizes para economizar tokens.
+
+2.1. Descompressão Semântica:
+O Cheshire recebe o `media_schema`, `location_schema` e `contacts_schema`. Ele deve reconstruir a "Cena" antes da extração.
+- Exemplo: Se `media_schema` contém ["img", "desc", "cap"], o Cheshire gera internamente: "O usuário enviou uma IMAGEM descrita como [desc] com a legenda [cap]".
+
+2.2. O Content-Hashing (Deduplicação de Nível 0):
+- Algoritmo: SHA-256 do payload normalizado.
+- Cache: Redis L1 (TTL 24h).
+- Ação: Se o hash bater, o Cheshire retorna `status: 304 (Not Modified)` e apenas atualiza o `last_seen` do evento original no Postgres, sem disparar Embeddings.
+
+2.3. O Filtro de Baixa Entropia:
+- Regra: Mensagens com menos de 3 bits de informação semântica (Ex: "ok", "beleza", "👍") são marcadas como `is_fatic: true`.
+- Destino: Tabela `raw_events` apenas. Elas nunca tocam o Qdrant nem geram triadas SPO.
+
+3. O ESPELHO LATENTE: DUAL-MAPPING E SVD (VECTOR LAYER)
+--------------------------------------------------------------------------------
+A intuição (128D) e a essência (2048D) vivem em Named Vectors no Qdrant.
+
+3.1. O Vulto (Named Vector: "shadow_128"):
+- Projeção: Redução via PCA (Principal Component Analysis).
+- Treinamento: A matriz de projeção é recalculada via SVD (Singular Value Decomposition) a cada 1000 fatos por Project_ID. 
+- Localização: A matriz reside no `metadata` do projeto (VPS 2) mas é carregada em RAM (VPS 3) no boot.
+
+3.2. A Essência (Named Vector: "core_2048"):
+- Modelo: text-embedding-3-large.
+- Função: Comparação profunda de nuances.
+
+3.3. Semantic Healing (O Worker de Reparo):
+- Gatilho: Se uma busca no "shadow_128" retorna um ID com similaridade > 0.95 mas o campo `is_cold` é true.
+- Ação: Re-vetorização On-The-Fly do texto original para o "core_2048" e update no Qdrant.
+
+4. CARTOGRAFIA DE TRIADAS: SPO + PLUTCHIK 512 (KNOWLEDGE LAYER)
+--------------------------------------------------------------------------------
+A unidade mínima de consciência é o [Sujeito] -> [Predicado] -> [Objeto].
+
+4.1. O Ontological Guardrail (Dicionário de Predicados):
+O sistema mantém uma tabela de normalização de verbos/predicados.
+- Entrada: "receia", "tem pavor", "tem medo".
+- Saída Canônica: "tem_medo_de".
+- Objetivo: Evitar a fragmentação do grafo por sinonímia de LLM.
+
+4.2. O Espectro de Plutchik 512D:
+Cada triada SPO é mapeada em um vetor emocional de 512 dimensões.
+- Base: Alegria, Tristeza, Raiva, Medo, Nojo, Surpresa, Antecipação, Confiança.
+- Expansão: Derivações dinâmicas (Ex: "Nostalgia Tóxica", "Empolgação Profissional").
+- Uso: O Oráculo recupera fatos não apenas por tema, mas por compatibilidade emocional com a query atual.
+
+5. GNN ENGINE: O SONHADOR (REASONING LAYER)
+--------------------------------------------------------------------------------
+O Cheshire sonha a cada 300 segundos para tecer conexões.
+
+5.1. Link Prediction (Intuição Sintética):
+- Se Nó A (Gosta de Velejar) e Nó B (Mora em Florianópolis) coexistem.
+- A GNN cria uma aresta inferida: `source: 'Dreamer'`, `weight: 0.65`, `type: 'locality_affinity'`.
+
+5.2. Hub Protection (Poda Espectral):
+- Limite: Máximo de 50 arestas de saída por nó no carregamento em RAM.
+- Critério: `Confidence * Interaction_Count`.
+- Motivo: Impede que nós genéricos travem o cálculo de vizinhança.
+
+6. O JUIZ DE DISSONÂNCIA: LEI DA RECORRÊNCIA E SCARRING
+--------------------------------------------------------------------------------
+Como lidar quando o usuário mente ou muda de ideia?
+
+6.1. Scarring (A Cicatriz):
+- Se Fato B contradiz Fato A no mesmo escopo.
+- Fato A NÃO é deletado. Ele recebe a flag `is_scar: true` e sua `confidence` cai para 0.1.
+- Valor: O sistema entende a evolução da persona ("Ele era vegetariano, agora come carne").
+
+6.2. Protocolo Hidden Signal (_cascata_guardian):
+- Se Dissonância > 50%.
+- Ação: A API injeta no JSON de resposta para o Executivo:
+  `"_cascata_guardian": { "alert": "DIFFERING_TRUTHS", "fact_a": "...", "fact_b": "...", "resolve_via": "ask_user" }`
+
+7. TERMODINÂMICA DO SISTEMA (EXECUTION & RESILIENCE)
+--------------------------------------------------------------------------------
+7.1. Outbox Pattern Semântico (Garantia de Sincronia):
+1. Salva no Postgres (VPS 2) -> `sync_status: 'pending'`.
+2. Worker background tenta salvar no Qdrant (VPS 2).
+3. Sucesso -> Update Postgres para `sync_status: 'synced'`.
+4. Falha -> Retry com backoff até 24h.
+
+7.2. Nostalgia Governor (CPU Protection):
+Se o sistema detectar mais de 5 re-materializações (Semantic Healing) por minuto para o mesmo usuário:
+- Ação: Trava a re-vetorização, usa o contexto bruto do Postgres e agenda o "Healing Profundo" para o período de sono da madrugada.
+
+7.3. AI Gateway Redundancy:
+Pool de 5 slots de API.
+- Slot 1-2: Ultra-Performance (Ex: Groq/Llama-3).
+- Slot 3-4: Deep Reasoning (Ex: Gemini-1.5-Pro).
+- Slot 5: Local Failback (Ex: Llama-3-8B 4-bit na VPS 3).
+
+8. SOBERANIA E IMORTALIDADE (.CAF 2.0)
+--------------------------------------------------------------------------------
+8.1. Estrutura do Snapshot Soberano:
+O arquivo .CAF gerado pelo Cascata deve conter:
+- `/graph`: Dump SQL das tabelas de Triadas e Emoções.
+- `/vectors`: Snapshot binário das coleções do Qdrant.
+- `/matrices`: Matrizes SVD/PCA de 128D por projeto.
+- `/biography`: Um resumo narrativo gerado por IA no momento do backup.
+
+8.2. Anonimização Irreversível (Right to be Forgotten):
+- Em caso de deleção, o UUID do usuário é transformado em um hash SHA-512 salteado. 
+- O Grafo permanece intacto, mas o dono é agora uma "Sombra Estatística". O sistema mantém o aprendizado, mas perde o rastro biográfico.
+
+================================================================================
+          FIM DO CODEX FINAL - CHESHIRE MEMORY SYSTEM SINGULARITY
+              "O gato é opcional. O sorriso é inegociável."
+================================================================================

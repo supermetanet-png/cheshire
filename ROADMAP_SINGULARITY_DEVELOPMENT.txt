@@ -1,0 +1,136 @@
+
+================================================================================
+          CHESHIRE MEMORY SYSTEM - THE SINGULARITY BUILDER'S GUIDE
+================================================================================
+Fase: Implementação Core (VPS 3)
+Objetivo: Construção da Psique Digital
+Diretriz: Exaustividade Absoluta / Zero Resumo
+================================================================================
+
+FASE 1: NEURAL PRIMING (INFRAESTRUTURA E TIPAGEM RÍGIDA)
+--------------------------------------------------------------------------------
+Antes do primeiro embedding, a estrutura deve ser blindada.
+
+1.1. Setup do Ambiente VPS 3 (O Cérebro):
+- Configuração do Node.js 22 LTS com `--max-old-space-size=...` calculado para suportar 1M de triadas por GB.
+- Implementação do Isolated-VM para execução de scripts de limpeza de dados em sandbox.
+- Estabelecimento de túneis mTLS com a VPS 2 (Cofre).
+
+1.2. Definição do Esquema de Dados (types.ts):
+- Expansão da interface `AtomicFact` para incluir `PlutchikV512` (Vetor de 512 dimensões).
+- Inclusão de `source_id` e `source_type` (User, AI_Inference, System_Log).
+- Implementação de `SyncStatus` (local_only, pending, synced, error).
+
+1.3. O Mirror Proxy (Vector Guard):
+- Desenvolvimento da ponte de comunicação com o Qdrant.
+- Lógica de isolamento: Toda query deve injetar automaticamente o `project_id` no filtro de metadados.
+
+FASE 2: O TÁLAMO (INGESTÃO E DESCOMPRESSÃO MATRICIAL)
+--------------------------------------------------------------------------------
+Responsável por transformar ruído em estrutura em <150ms.
+
+2.1. Normalizador Universal:
+- Script de descompressão para `media_schema`, `location_schema`, `contacts_schema`.
+- Lógica: Se o campo for `null`, o normalizador remove a chave para economizar memória, mas mantém a referência se houver `links`.
+
+2.2. Content-Hashing (SHA-256):
+- Implementação do algoritmo de limpeza semântica (remover emojis, stop-words, espaços duplos).
+- Geração do Hash. Consulta ao Redis L1.
+- Se Hash existe: Retorna `pointer_id` existente.
+- Se não: Segue para Extração SPO.
+
+2.3. AI Gateway Modular (The Circuit Breaker):
+- Configuração de 5 Slots de API (Grok, Gemini, GPT, Anthropic, Local).
+- Lógica de Rotação: 
+  * Tentativa 1 (Slot Atual). Timeout: 80ms.
+  * Falha -> Slot + 1.
+  * Blackout Total -> Aciona Llama-3-8B local (quantizado 4-bit) para extração SPO básica.
+
+FASE 3: A EXTRAÇÃO SPO E O ONTOLOGY GUARDRAIL
+--------------------------------------------------------------------------------
+Transformando linguagem em geometria.
+
+3.1. Prompt Engineering de Extração (Staff Level):
+- O prompt não pede "resumo". Ele pede "triadas atômicas em formato JSON".
+- Restrição: Sujeito deve ser sempre um UUID ou Entidade Conhecida. Predicado deve ser um Verbo de Ação ou Estado.
+
+3.2. O Normalizador de Predicados:
+- Tabela de De-para no Postgres. 
+- Ex: "adora", "gosta muito", "é fã de" -> "tem_afinidade_com".
+- Isso garante que o Grafo não se fragmente em milhares de arestas sinônimas.
+
+3.3. Mapeamento Plutchik 512D:
+- O modelo de extração atribui pesos (0.0 a 1.0) para as 8 emoções base.
+- O Worker Sonhador expande isso para as 512 dimensões latentes via cálculo de distância vetorial em clusters emocionais.
+
+FASE 4: O ESPELHO QUÂNTICO (DUAL-MAPPING VETORIAL)
+--------------------------------------------------------------------------------
+Como lembrar de tudo sem gastar toda a RAM.
+
+4.1. Primary Map (2048D):
+- Envio do texto normalizado para `text-embedding-3-large`.
+- Armazenamento no campo `vector_deep` do Qdrant.
+
+4.2. Secondary Map (128D) & SVD Worker:
+- Implementação do algoritmo PCA (Principal Component Analysis).
+- O Worker lê os últimos 1000 fatos, calcula a matriz SVD e gera o `vector_fingerprint`.
+- Protocolo Hot-Swap: A matriz antiga é mantida até que o novo binário esteja carregado em RAM.
+
+FASE 5: GNN ENGINE (O RACIOCÍNIO TOPOLÓGICO)
+--------------------------------------------------------------------------------
+O Cheshire não busca, ele "ressona".
+
+5.1. Travessia de Grafo (2-Hops):
+- Implementação de busca recursiva no Postgres utilizando a tabela `knowledge_graph_edges`.
+- Limitação de Hub: Se um nó tem > 50 arestas, seleciona apenas as 50 com maior `weight * confidence`.
+
+5.2. Link Prediction (Intuição):
+- Worker "Sonhador" (Dreamer) roda a cada 300s.
+- Algoritmo: Jaccard Similarity + Vector Distance.
+- Se dois nós não conectados têm similaridade > 0.85, cria aresta `type: 'inference'`.
+
+FASE 6: O ORÁCULO (MULTI-STAGE RETRIEVAL)
+--------------------------------------------------------------------------------
+A arquitetura final da lembrança.
+
+6.1. Stage 1 (Fast Path):
+- Busca no Qdrant pelo `vector_fingerprint` (128D). Top 100 resultados. <20ms.
+
+6.2. Stage 2 (Semantic Healing):
+- Filtra resultados com `is_cold_memory: true`.
+- Se encontrado e similaridade > 0.92: Dispara re-vetorização On-The-Fly (2048D).
+- Se CPU > 80%: Pula re-vetorização e usa apenas contexto textual.
+
+6.3. Stage 3 (Graph Activation):
+- Pega os IDs do Stage 2 e busca seus vizinhos no Postgres.
+- Adiciona nós de "Kinship" e "Core_Identity" (Sempre ativos).
+
+6.4. Stage 4 (Cross-Encoder Reranking):
+- Usa o modelo local (Transformers.js) para comparar a query com a biografia consolidada.
+- Gera o JSON final com a chave `_cascata_guardian` se houver dissonância.
+
+FASE 7: JUIZ DE DISSONÂNCIA E SCARRING
+--------------------------------------------------------------------------------
+Gerindo a verdade.
+
+7.1. Colisão de Fatos:
+- Lógica: `Confidence * (1 / (1 + age_days))`.
+- Se Fato Novo > Fato Antigo: Marca Antigo como `is_scar: true`.
+
+7.2. Protocolo de Dissonância:
+- Se a diferença de score for < 10%: Injeta alerta no sistema para o n8n perguntar ao usuário: "Você me disse X, mas agora disse Y. O que mudou?".
+
+FASE 8: SOBERANIA .CAF E MANUTENÇÃO
+--------------------------------------------------------------------------------
+Imortalidade e exportação.
+
+8.1. CAF Generator:
+- Script de dump binário do Qdrant + SQL do Postgres.
+- Empacotamento em arquivo único com manifest.json de biografia.
+
+8.2. Nostalgia Governor:
+- Monitor de latência. Se o sistema gasta > 500ms em retrieval, o Governor simplifica o Stage 4 (remove o Cross-Encoder) para manter a fluidez.
+
+================================================================================
+          MANUAL CONCLUÍDO - INICIAR IMPLEMENTAÇÃO DA CAMADA DE TIPOS
+================================================================================

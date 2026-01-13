@@ -1,0 +1,20 @@
+{
+  "platform": "whatsapp",
+  "timestamp": 1720792200000,
+
+  "user": {
+    "id": "5511999887766"
+  },
+
+  "location": {
+    "lat": -23.5505,
+    "lng": -46.6333
+  },
+
+  "event": {
+    "category": "message",
+    "action": "user typed and deleted the message three times before sending"
+  },
+
+  "semantic_text": " Dia 12 de julho de 2026 10h30 da manhã. Mensagem enviada via WhatsApp.\n\nO conteúdo principal da mensagem foi um texto simples dizendo: \"mensagem\".\n\nJunto ao texto, o usuário compartilhou conteúdos multimídia. Foi identificada uma imagem analisada por inteligência artificial, contendo uma descrição visual relevante. Também foi enviado um vídeo mostrando um cachorro correndo, acompanhado da legenda \"Olha que fofo!\".\n\nA mensagem está associada a uma localização em São Paulo, especificamente na região da Avenida Paulista.\n\nDurante a interação, o usuário compartilhou contatos pessoais, incluindo João Silva, com telefone 5511988776655 e e-mail joao@email.com, e Maria Santos, com telefone 5511977665544.\n\nLinks também foram mencionados na mensagem, incluindo um site sobre inteligência artificial e uma documentação técnica relacionada ao tema.\n\nAlém disso, o usuário enviou arquivos chamados \"relatorio.pdf\" e \"planilha.xlsx\".\n\nHouve uma interação por botão, na qual o usuário confirmou uma ação utilizando um emoji de aprovação, indicando intenção de confirmação.\n\nAntes do envio final, o usuário demonstrou hesitação ao digitar e apagar a mensagem três vezes.\n\nEssa mensagem faz parte de um histórico maior de conversa, onde anteriormente Ana perguntou sobre o horário de uma reunião, a assistente respondeu que seria às 14h, e João sugeriu adiar para 15h."
+}

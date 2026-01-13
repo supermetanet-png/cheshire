@@ -1,0 +1,25 @@
+
+================================================================================
+RELATÓRIO DE INQUIRIÇÃO TÉCNICA NÍVEL 4 - CHESHIRE MEMORY (THE LAST MILE)
+SITUAÇÃO: AJUSTE DE CONCORRÊNCIA SEMÂNTICA E INTEGRIDADE DO GRAFO
+================================================================================
+
+Com a consolidação do "Semantic Healing" e da "Ontologia Guardrail" em 'respostas4.txt', o sistema atingiu um nível de sofisticação comparável a sistemas de memória episódica biológica. Contudo, como Staff Engineer, identifico 4 "pontos cegos" de alta complexidade que podem gerar entropia no Grafo se não definidos antes da implementação:
+
+1. DEDUPLICAÇÃO SEMÂNTICA NA INGESTÃO:
+   O sistema possui Content-Hashing (SHA-256) para duplicatas exatas. Mas como trataremos a "Duplicata Semântica" (ex: Fato A: "Moro em SP", Fato B: "Minha residência é em São Paulo")? O sistema deve fundir esses fatos atômicos em um único ID no Qdrant aumentando a 'Confidence', ou permitir que existam como nós distintos conectados por uma aresta de 'Sinonímia' de peso 1.0?
+
+2. GESTÃO DE CONTEXTO EM "SEMANTIC HEALING":
+   Durante a re-materialização de uma memória do "Inconsciente" (128D -> 2048D), a re-vetorização On-The-Fly será feita usando o modelo configurado no momento (ex: GPT-4o-mini). Se o fato original foi vetorizado há 2 anos com um modelo agora depreciado, a nova essência 2048D pode ter um "desvio de posição" no espaço latente. Devemos armazenar o 'Texto Bruto de Origem' no Postgres (criptografado) para garantir re-vetorizações fiéis, ou confiamos na estabilidade do dicionário de sinônimos?
+
+3. ESCALABILIDADE DO VECTOR PROXY (MULTI-TENANCY):
+   O `_vector_proxy` garante o isolamento por Project_ID. Em um cenário de 10.000 projetos ativos, manter 10.000 Named Vectors na RAM da VPS 2 pode saturar o Qdrant. Implementaremos uma "Política de Descarregamento de Coleção" (Lazy Loading de coleções Qdrant na VPS 2) comandada pela VPS 3, ou assumiremos que o Qdrant gerencia o cache de paginação de forma autônoma?
+
+4. PURGA DE "ALUCINAÇÕES TOPOLÓGICAS":
+   O Sonhador (Worker de Link-Prediction) criará arestas inferidas. Existe o risco de "Efeito Cascata de Falsas Memórias". Qual o protocolo de 'Garbage Collection' para arestas inferidas que nunca foram validadas pelo Arauto ou pelo Usuário? Elas devem expirar mais rápido que fatos declarados (TTL diferenciado)?
+
+5. RECONCILIAÇÃO DE IDENTIDADE:
+   Se um usuário trocar de Identity (ex: usava E-mail e agora logou via Google com outro identificador, mas a 'identidade concatenada' do Cascata os une sob o mesmo UUID), o Cheshire deve re-escanear o Grafo para unificar as biografias ou a unificação ocorre apenas na camada de Retrieval via filtro de UUID?
+
+Estas são as últimas camadas de abstração. Com elas, o código da VPS 3 será uma tradução direta de uma arquitetura infalível.
+================================================================================

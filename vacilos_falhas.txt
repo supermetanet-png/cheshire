@@ -1,0 +1,37 @@
+1. Relatório de Incongruências e Pontas Soltas (Auditoria Staff)
+A. O Abismo da Configuração (Agnosticismo vs. Hardcoding)
+Ponta Solta: O SynapticInterface.ts possui o CURRENT_BRAIN como uma constante estática (gemini-3-pro-preview). Isso anula o propósito do AIGateway.ts, que foi desenhado para ser dinâmico.
+Incongruência: O IngestionService.ts está injetando brain_signature: 'synaptic-dispatcher-v1', enquanto a interface canônica espera a versão do modelo. Isso quebrará o cálculo de integridade do TheseusMigrationService.
+B. Entropia de Metadados (Metadata Bloat)
+trabalho Iniciado e Não Finalizado: O objeto metadata dentro de AtomicFact tornou-se um "terreno baldio".
+IngestionService coloca hash e platform.
+DecayEngine busca erosion_rate.
+ScarringService busca scar_depth.
+DifferentialPrivacyFilter busca is_anonymized.
+Risco: Não existe um validador de metadados. Se o IngestionService não prever todos esses campos no nascimento do fato, os motores de decaimento e privacidade falharão silenciosamente (operando sobre undefined).
+C. O Vácuo da Memória Coletiva (Hive Transport)
+Ponto Cego: Criamos o CollectiveConsensusEngine e o DifferentialPrivacyFilter, mas não há um serviço de transporte.
+Vacilo: O sistema "anonimiza" o fato, mas ele permanece na base local do usuário. Não existe a rota POST /api/hive/sync ou um worker que envie esses fatos anonimizados para um agregador global (o Cérebro da Colmeia).
+D. Desconexão do Oráculo (Retrieval Latency)
+Trabalho Pausado: O RetrievalService.ts (O Oráculo) ainda opera com mockVectorSearch. O sistema está "fingindo" que busca no Qdrant.
+Gargalo: O "Semantic Healing" (re-materialização 2048D) no Stage 2 pode gerar um loop infinito de requisições se não houver um Nostalgia Governor real limitando a concorrência.
+E. A Falha do "Dreamer"
+Trabalho Não Finalizado: O DreamerWorker.ts é puramente descritivo. Ele não possui a lógica para disparar o DecayEngine.
+Consequência: O sistema nunca "esquece". A entropia do grafo crescerá até saturar a RAM da VPS 3, pois a poda espectral (Hub Protection) só acontece no carregamento, não na persistência.
+2. Plano de Ação Corretivo: Operação "Sinergia Pura"
+Este plano deve ser executado antes de qualquer avanço para a Fase 10.
+Fase A: Unificação do Genoma (Standardization)
+Refatorar types.ts: Criar uma interface StrictMetadata para garantir que todo fato nasça com os campos necessários para decaimento, cicatriz e colmeia.
+Sincronizar SynapticInterface: Remover constantes de modelo. O SynapticInterface deve ler a assinatura do neurônio ativo diretamente do AIGateway.
+Fase B: Implementação do Sistema Linfático (Workers & Transport)
+Ativar o DreamerWorker:
+Tarefa 1: Varredura de Vitalidade (chamar DecayEngine).
+Tarefa 2: Cicatrizar conflitos pendentes (chamar GuardianService).
+Tarefa 3: Exportação de Axiomas (enviar fatos anonimizados para o pool coletivo).
+Criar o NostalgiaGovernor: Um semáforo de concorrência que impede que o Oráculo re-viva mais de X memórias frias simultaneamente.
+Fase C: Conexão Real com o "Cofre" (Vector & SQL Bridge)
+Finalizar RetrievalService: Substituir mocks por chamadas reais ao VectorController (VPS 2).
+Implementar "Lazy Re-indexing": Lógica no TheseusMigrationService para detectar fatos com assinatura de cérebro antiga durante o retrieval e marcá-los para cura em background.
+Fase D: Refinamento da Interface (UX de Staff)
+Dashboard Hive: Mostrar visualmente o fluxo de saída (fatos indo para a colmeia) e entrada (axiomas herdados).
+Alertas de Dissonância: O App.tsx deve listar as colisões biográficas que o Guardian não conseguiu resolver sozinho.

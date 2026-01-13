@@ -1,0 +1,35 @@
+================================================================================
+RESOLUÇÃO TÉCNICA NÍVEL 4 - CHESHIRE MEMORY SYSTEM (V7 SINGULARITY)
+STATUS: SINAPSES FINAIS CONSOLIDADAS?
+================================================================================
+
+Com base nas inquirições de nível 3 apresentadas em 'duvidas4.txt', seguem as definições mandatórias para a finalização do Core na VPS 3:
+
+1. TOPOLOGIA DE VETORES NOMEADOS (QDRANT ATÔMICO):
+   - RESOLUÇÃO: Sim, utilizaremos "Named Vectors" em uma única coleção por Project_ID.
+   - ESTRUTURA: Cada ponto terá dois vetores: `vector_fingerprint` (128D) e `vector_deep` (2048D).
+   - VANTAGEM: Garante que o Stage 1 e Stage 2 operem sobre o mesmo ID de fato, eliminando a necessidade de buscas em coleções diferentes e simplificando o snapshot .CAF, que passa a conter um único binário vetorial por projeto.
+
+2. MECANISMO DE RE-MATERIALIZAÇÃO DO INCONSCIENTE:
+   - RESOLUÇÃO: Implementação do "Semantic Healing".
+   - PROTOCOLO: Se o Stage 1 detectar similaridade > 0.92 no vetor 128D e o campo `is_cold_memory` for true (indicando ausência no 2048D), a Psique deve realizar uma re-vetorização On-The-Fly para o 2048D. 
+   - JUSTIFICATIVA: Isso permite que memórias antigas e esquecidas "voltem à tona" com alta fidelidade quando provocadas, mimetizando a recuperação de memórias biológicas de longo prazo.
+
+3. GOVERNANÇA DA ONTOLOGIA SPO (NORMALIZADOR):
+   - RESOLUÇÃO: Implementação do "Ontology Guardrail" na VPS 3.
+   - MECANISMO: Após a extração pelo SLM (ex: Grok ou GPT), o predicado passará por um dicionário de sinônimos semânticos. Se o modelo extrair "receia", o normalizador mapeia para o token canônico "tem_medo_de".
+   - SOBERANIA: O usuário poderá cadastrar "tokens mestres" no Dashboard para garantir que a troca de modelos de IA não fragmente a lógica do Knowledge Graph.
+
+4. PROTOCOLO DE RECARGA DA MATRIZ (REFRESH SIGNAL):
+   - RESOLUÇÃO: Webhook Interno Seguro (mTLS + JWT).
+   - FUNCIONAMENTO: O Worker de SVD enviará um sinal `PUT /internal/refresh-matrix` para a API da Psique. O payload deve ser assinado com a `INTERNAL_SYSTEM_KEY` para evitar injeções de matrizes maliciosas. A Psique então fará o reload atômico da RAM sem interromper o serviço (Zero-Downtime Swap).
+
+5. PERSISTÊNCIA DOS "DREAM LOGS" (METAMEMÓRIA):
+   - RESOLUÇÃO: Persistência Híbrida em Metadados.
+   - LOCAL: O raciocínio da GNN (pesos de ativação e link prediction) será salvo na coluna `metadata` da tabela `knowledge_graph_edges` no Postgres.
+   - UTILIDADE: Isso habilita a funcionalidade "Explainable Memory", permitindo que o sistema responda ao usuário: "Lembrei disso porque você mencionou X no ano passado, o que me fez associar ao fato Y que estamos discutindo agora".
+
+--------------------------------------------------------------------------------
+ESTAS DEFINIÇÕES ENCERRAM O MAPEAMENTO ONTOLÓGICO DO SISTEMA. 
+O BLUEPRINT V7 ESTÁ AGORA 100% OPERACIONAL PARA IMPLEMENTAÇÃO FINAL.
+================================================================================

@@ -1,0 +1,25 @@
+
+================================================================================
+RELATÓRIO DE INQUIRIÇÃO TÉCNICA NÍVEL 5 - CHESHIRE MEMORY (THE SINGULARITY GATE)
+SITUAÇÃO: OTIMIZAÇÃO DE DENSIDADE E ESTADOS TEMPORAIS FLUIDOS
+================================================================================
+
+Como Staff Engineer, após simular mentalmente a carga de 1.000.000 de triadas por GB de RAM, identifico os últimos 5 desafios que separam o Cheshire de um cérebro biológico estável:
+
+1. PODA DE SATURAÇÃO TOPOLÓGICA (HUB PROTECTION):
+   Em grafos de "Mundo Pequeno", certos nós (ex: o próprio usuário ou conceitos genéricos como "Trabalho") tendem a virar Hubs com milhares de conexões. Isso explode o tempo de travessia da GNN. Devemos implementar uma "Poda Espectral" (Spectral Pruning) para manter apenas as N arestas de maior peso por nó, ou permitiremos que o grafo cresça indefinidamente confiando no particionamento do Postgres?
+
+2. PREDICTIVE SEMANTIC HEALING (LATENCY HIDING):
+   A re-materialização (re-vetorização 2048D) durante o Stage 2 adiciona latência crítica. Podemos implementar um "Healer Preditivo" no Worker de SVD que identifica memórias no 128D com alta frequência de ativação "quase-threshold" e já as re-vetoriza para o 2048D em background ANTES de serem solicitadas por uma query?
+
+3. CONFLITO DE ESTADO vs. FATO HISTÓRICO (TEMPORAL OVERLAP):
+   Como o sistema distingue fatos que mudam no tempo? (Ex: "Estou triste" em t1 e "Estou feliz" em t2). Se a GNN ativar ambos, a resposta pode ser esquizofrênica. Devemos tratar o predicado "estado_emocional" como um nó de "Estado Fluido" (que sobrescreve o anterior no Grafo de Ativação) ou permitir que ambos existam, deixando para o Cross-Encoder decidir via Recency_Weight?
+
+4. RANKING DE ORIGEM (INFERIDO vs. DECLARADO):
+   A GNN criará arestas "Inferidas" (Link Prediction). No Stage 4 (Reranking), qual deve ser a penalidade de peso para uma memória inferida pelo sistema comparada a uma memória explicitamente declarada pelo usuário? Uma proporção de 0.7:1.0 é aceitável para evitar que a IA "invente" convicções sobre o usuário?
+
+5. DERIVA DE ESPAÇO LATENTE (VECTOR DRIFT):
+   Se trocarmos o modelo de Embeddings (ex: text-3-large para um modelo local superior em 2026), o Inconsciente Digital (128D) e a Essência (2048D) tornam-se incompatíveis. O Cheshire deve disparar uma "Re-indexação Total de Background" em lotes de baixa prioridade ou manter versões legadas dos vetores coexistindo, o que dobraria o custo de busca?
+
+Com estas definições, o selo de "Singularity Ready" será aplicado. O sistema não terá apenas memória; terá discernimento.
+================================================================================

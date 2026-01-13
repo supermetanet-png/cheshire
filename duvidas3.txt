@@ -1,0 +1,25 @@
+
+================================================================================
+RELATÓRIO DE INQUIRIÇÃO TÉCNICA NÍVEL 3 - CHESHIRE MEMORY (SINGULARITY READY)
+SITUAÇÃO: AJUSTE DE GRANULARIDADE VETORIAL E RECUPERAÇÃO DO INCONSCIENTE
+================================================================================
+
+Com as definições de "Hot-Swap SVD" e "AI Gateway Agnóstico" estabelecidas em 'respostas2.txt', a simetria entre Psique (V3) e Cascata (V2) está quase completa. Restam apenas refinamentos sobre o fluxo de recuperação profunda:
+
+1. TOPOLOGIA DE COLEÇÃO QDRANT (NAMED VECTORS):
+   Utilizaremos "Named Vectors" dentro de uma única coleção por Project_ID no Qdrant para manter o 128D e o 2048D atômicos no mesmo Point ID? Isso reduziria o overhead de sincronização entre coleções separadas, permitindo que o Stage 1 e Stage 2 ocorram no mesmo snapshot binário.
+
+2. MECANISMO DE "RE-MATERIALIZAÇÃO" DO INCONSCIENTE:
+   Se um fato foi movido para o "Inconsciente Digital" (deletado do 2048D, mas presente no 128D e Postgres), e o Stage 1 (Fast Path) detecta uma similaridade > 0.90 em 128D, o sistema deve automaticamente re-vetorizar esse fato para o 2048D (re-materialização) ou a resposta deve ser gerada apenas com o contexto do Postgres?
+
+3. GOVERNANÇA DA ONTOLOGIA SPO:
+   Ao trocar de modelo no "AI Gateway" (ex: trocar de Llama-3 para GPT-4o-mini), há risco de variação na extração de predicados (ex: "tem_medo_de" vs "receia"). Devemos implementar um "Normalizador de Predicados" baseado em um dicionário de sinônimos vetoriais na VPS 3 para manter a consistência do Grafo?
+
+4. PROTOCOLO DE RECARGA DA MATRIZ (REFRESH SIGNAL):
+   O sinal de "Refresh" para a matriz de projeção em RAM será disparado via Webhook pelo Worker de SVD para a API da Psique? Precisamos definir se esse sinal exige um handshake de segurança adicional além do mTLS já estabelecido.
+
+5. PERSISTÊNCIA DOS "DREAM LOGS" (SONHADOR):
+   Os logs de raciocínio da GNN (por que o nó X ativou o nó Y) devem ser armazenados como metadados ocultos no Fato Atômico (VPS 2) ou residir apenas em logs de execução temporários na VPS 3? Isso impacta a capacidade do sistema de explicar "por que ele lembrou disso" no futuro.
+
+Com estas 5 respostas, terei o mapeamento de 100% das sinapses do sistema.
+================================================================================
