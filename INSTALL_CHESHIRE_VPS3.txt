@@ -1,0 +1,60 @@
+
+================================================================================
+          CHESHIRE MEMORY SYSTEM V7 - GUIA DE IMPLANTAÇÃO (VPS 3)
+================================================================================
+STATUS: INFRAESTRUTURA SINCRONIZADA
+FOCO: PSIQUE CORE (ORQUESTRADOR MULTI-PROJETO)
+================================================================================
+
+Este guia foi calibrado para usar a conexão direta com a VPS 2 (Cascata DB)
+nas portas 5432 (Postgres) e 6333 (Qdrant).
+
+1. PREPARAÇÃO DA VPS 3:
+--------------------------------------------------------------------------------
+- OS: Ubuntu 22.04 LTS.
+- Garanta que as portas 3005 (API Cheshire) estejam abertas na VPS 3.
+
+2. CLONAGEM E ACESSO AO NÚCLEO:
+--------------------------------------------------------------------------------
+git clone https://github.com/supermetanet-png/cheshire.git
+cd cheshire
+
+3. PROTOCOLO DE RENOMEAÇÃO (txt -> executável):
+--------------------------------------------------------------------------------
+# Convertendo o manifesto de ambiente
+mv env.txt .env
+
+# Convertendo os arquivos de orquestração Docker
+mv Dockerfile.txt Dockerfile
+mv docker-compose.yml.txt docker-compose.yml
+
+4. CONFIGURAÇÃO DE SINAPSE (Edição do .env):
+--------------------------------------------------------------------------------
+# Edite o arquivo .env e preencha as chaves:
+# API_KEY (Gemini)
+# OPENAI_API_KEY (Para embeddings de 1024 dimensões)
+# DB_PASS (Senha configurada no Cascata)
+nano .env
+
+5. CONSTRUÇÃO E ATIVAÇÃO:
+--------------------------------------------------------------------------------
+# Construindo a imagem e subindo em background
+docker compose up -d --build
+
+6. TESTE DE MULTI-PROJETO (n8n Simulation):
+--------------------------------------------------------------------------------
+# Para enviar dados de qualquer projeto criado no Cascata para o Cheshire:
+# Use o endpoint: POST http://IP_DA_VPS_3:3005/api/psyche/ingest
+# HEADER OBRIGATÓRIO: x-project-slug: [o-slug-do-projeto-no-cascata]
+
+7. VERIFICAÇÃO DE SAÚDE:
+--------------------------------------------------------------------------------
+# Verifique se o cérebro está se comunicando com o Cascata:
+docker-compose logs -f cheshire-psyche
+
+# Se ver mensagens como "[PoolService] Init cascata_db_... -> 44.214.142.149:5432",
+# a sinapse foi bem sucedida.
+
+================================================================================
+"O cérebro agora gerencia múltiplas almas através de um único pulsar."
+================================================================================

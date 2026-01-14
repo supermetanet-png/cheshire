@@ -1,62 +1,123 @@
+
 import express from 'express';
 import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { IngestionService } from './IngestionService';
 import { RetrievalService } from './RetrievalService';
 import { DreamerWorker } from './DreamerWorker';
-import { PoolService } from './PoolService';
-import { AIGateway } from './AIGateway';
 
+// Inicialização de ambiente
 dotenv.config();
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
-const PORT = process.env.PORT || 3005; // Porta distinta para o Cérebro
+const PORT = process.env.PORT || 3005;
 
-// Fix: Cast middleware to any to resolve 'PathParams' overload mismatch in some type versions
-app.use(express.json() as any);
+// Configurações de Middleware (Segurança e Volume de Dados)
+// Added 'as any' cast to bypass middleware type version mismatches in strict environments
+app.use(express.json({ limit: '50mb' }) as any);
 
-// --- ENDPOINTS NEURAIS (Sistema 2) ---
+// --- ENDPOINTS NEURAIS (SISTEMA 2) ---
 
 /**
- * Endpoint de Ingestão: Recebe dados normalizados da VPS 1 (n8n)
+ * Ingestão de Memória: Processa dados da VPS 1 (n8n)
  */
-app.post('/api/psyche/ingest', async (req: any, res: any) => {
-  const projectSlug = req.headers['x-project-slug'] as string;
-  if (!projectSlug) return res.status(400).json({ error: 'Project ID required' });
+// Using express.Request and express.Response to ensure correct type resolution from express namespace
+app.post('/api/psyche/ingest', async (req: express.Request, res: express.Response): Promise<void> => {
+    const projectSlug = req.headers['x-project-slug'] as string;
+    
+    if (!projectSlug) {
+        res.status(400).json({ 
+            error: 'Project Identity Required', 
+            code: 'MISSING_X_PROJECT_SLUG' 
+        });
+        return;
+    }
 
-  const service = new IngestionService(projectSlug);
-  const result = await service.process(req.body);
-  res.status(result.status).json(result);
+    try {
+        const service = new IngestionService(projectSlug);
+        const result = await service.process(req.body);
+        res.status(result.status).json(result);
+    } catch (error: any) {
+        console.error(`[Neural Error] Ingestion Failed: ${error.message}`);
+        res.status(500).json({ error: 'Cognitive Ingestion Failure', detail: error.message });
+    }
 });
 
 /**
- * Endpoint do Oráculo: Fornece contexto biográfico profundo
+ * Oráculo de Recuperação: Provê contexto profundo para a IA Executiva
  */
-app.post('/api/psyche/retrieve', async (req: any, res: any) => {
-  const { query, project_id } = req.body;
-  const context = await RetrievalService.getContext(query, project_id);
-  res.json({ context });
+// Using express.Request and express.Response to ensure correct type resolution from express namespace
+app.post('/api/psyche/retrieve', async (req: express.Request, res: express.Response): Promise<void> => {
+    const { query, project_id } = req.body;
+
+    if (!query || !project_id) {
+        res.status(400).json({ error: 'Payload Incompleto: Query e ProjectID são mandatórios.' });
+        return;
+    }
+
+    try {
+        const context = await RetrievalService.getContext(query, project_id);
+        res.json({ context });
+    } catch (error: any) {
+        console.error(`[Neural Error] Retrieval Failed: ${error.message}`);
+        res.status(500).json({ error: 'Oracle Connection Failure' });
+    }
+});
+
+/**
+ * Health Check: Diagnóstico de pulso neural
+ */
+// Using express.Request and express.Response to ensure correct type resolution from express namespace
+app.get('/api/health', (req: express.Request, res: express.Response) => {
+    res.json({ 
+        status: 'ALIVE', 
+        pulse: new Date().toISOString(), 
+        version: '7.0.0-Singularity' 
+    });
+});
+
+// --- CAMADA DE RESSONÂNCIA (FRONTEND REACT) ---
+
+const distPath = path.join(__dirname, 'dist');
+
+// Serve arquivos estáticos (CSS, JS, Imagens)
+// Added 'as any' cast to bypass static middleware type version mismatches
+app.use(express.static(distPath, {
+    maxAge: '1d',
+    etag: true
+}) as any);
+
+// Fallback SPA: Entrega o index.html para qualquer rota não mapeada (React Router)
+// Using express.Request and express.Response to ensure correct type resolution from express namespace
+app.get('*', (req: express.Request, res: express.Response) => {
+    res.sendFile(path.join(distPath, 'index.html'));
 });
 
 // --- BOOTSTRAP DO ORGANISMO ---
 
 const boot = async () => {
-  console.log("--------------------------------------------------");
-  console.log("CHESHIRE MEMORY CORE v7 - INITIALIZING NEURONS");
-  console.log("--------------------------------------------------");
+    console.clear();
+    console.log("==================================================");
+    console.log("      CHESHIRE MEMORY CORE v7 - SINGULARIDADE     ");
+    console.log("==================================================");
 
-  try {
-    // 1. Iniciar loops de introspecção (Sleep Mode / Workers)
-    DreamerWorker.start();
+    try {
+        // Inicia workers de introspecção (Sleep Mode)
+        DreamerWorker.start();
+        console.log("[Sistema] DreamerWorker ativo. Ciclo circadiano iniciado.");
 
-    // 2. Escutar na porta definida
-    app.listen(PORT, () => {
-      console.log(`[Organismo] Pulso detectado na porta ${PORT}`);
-      console.log(`[Organismo] AIGateway configurado via Slot 1`);
-    });
-  } catch (e) {
-    console.error("[Fatal] Falha no transplante cerebral:", e);
-    process.exit(1);
-  }
+        app.listen(PORT, () => {
+            console.log(`[Sistema] Pulso detectado na porta ${PORT}`);
+            console.log(`[Sistema] Interface Visual disponível no IP da VPS.`);
+        });
+    } catch (error) {
+        console.error("[Fatal] Erro crítico na inicialização neural:", error);
+        process.exit(1);
+    }
 };
 
 boot();

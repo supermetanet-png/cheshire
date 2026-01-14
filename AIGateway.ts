@@ -1,6 +1,7 @@
 
 import { GoogleGenAI } from "@google/genai";
 import { AIProvider } from "./types";
+import axios from 'axios';
 
 export class AIGateway {
   private static providers: AIProvider[] = [
@@ -15,10 +16,6 @@ export class AIGateway {
   public static getActiveModelName(): string {
       const active = this.providers.find(p => p.status === 'active');
       return active ? active.model : 'unknown-neuron';
-  }
-
-  public static getMetrics() {
-      return { ...this.metrics };
   }
 
   public static async dispatch(task: { systemInstruction: string, contents: string }): Promise<string> {
@@ -48,6 +45,7 @@ export class AIGateway {
   }
 
   private static async callGemini(neuron: AIProvider, task: { systemInstruction: string, contents: string }): Promise<string> {
+    // Fix: Initializing GoogleGenAI with named parameter apiKey and using process.env.API_KEY directly.
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
     const response = await ai.models.generateContent({
       model: neuron.model as any,
@@ -58,11 +56,41 @@ export class AIGateway {
         temperature: 0.1
       }
     });
+    // Fix: Accessing response.text as a property, not a method.
     return response.text || '';
   }
 
+  /**
+   * Implementação Oficial: OpenAI text-embedding-3-small (Truncated to 1024D)
+   * Garante consistência semântica e eficiência de armazenamento no Qdrant.
+   */
   public static async getEmbedding(text: string): Promise<number[]> {
-    // Integração real com o modelo de embedding
-    return new Array(2048).fill(0).map(() => Math.random());
+    const apiKey = process.env.OPENAI_API_KEY;
+    if (!apiKey) {
+        console.warn("[AIGateway] OPENAI_API_KEY ausente. Usando fallback randômico (NÃO RECOMENDADO EM PRODUÇÃO)");
+        return new Array(1024).fill(0).map(() => Math.random());
+    }
+
+    try {
+        const response = await axios.post(
+            'https://api.openai.com/v1/embeddings',
+            {
+                input: text,
+                model: "text-embedding-3-small",
+                dimensions: 1024 // Solicita o corte para 1k dimensões conforme diretriz
+            },
+            {
+                headers: {
+                    'Authorization': `Bearer ${apiKey}`,
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
+
+        return response.data.data[0].embedding;
+    } catch (e: any) {
+        console.error(`[AIGateway] Erro ao gerar embedding OpenAI: ${e.response?.data?.error?.message || e.message}`);
+        throw new Error("Falha Crítica no Motor de Vetorização.");
+    }
   }
 }

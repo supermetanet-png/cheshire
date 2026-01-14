@@ -1,22 +1,27 @@
 
-version: '3.8'
-
 services:
   cheshire-psyche:
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile
     container_name: cheshire-psyche-core
+    restart: always
     environment:
       - PORT=3005
+      - NODE_ENV=production
       - API_KEY=${API_KEY}
-      - VECTOR_PROXY_URL=http://vps2-ip:port/rest/v1/vector
-      - DB_DIRECT_HOST=vps2-ip
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - VECTOR_PROXY_URL=${VECTOR_PROXY_URL}
+      - DB_DIRECT_HOST=${DB_DIRECT_HOST}
+      - DB_DIRECT_PORT=${DB_DIRECT_PORT}
       - DB_USER=${DB_USER}
       - DB_PASS=${DB_PASS}
     ports:
-      - "3005:3005"
-    restart: always
+      - "80:3005"
+    deploy:
+      resources:
+        limits:
+          memory: 2G
     networks:
       - cheshire_net
 

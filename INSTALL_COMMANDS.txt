@@ -1,0 +1,50 @@
+
+================================================================================
+          CHESHIRE MEMORY SYSTEM - DEPLOYMENT MANIFEST (VPS 3)
+          STATUS: PRONTO PARA INICIALIZAÇÃO SINÁPTICA
+================================================================================
+
+Execute os blocos de comando abaixo na sequência exata para instanciar a Psique.
+
+1. CLONAGEM E ACESSO AO NÚCLEO:
+--------------------------------------------------------------------------------
+git clone https://github.com/supermetanet-png/cheshire.git
+cd cheshire
+
+2. PROTOCOLO DE RENOMEAÇÃO (CONVERSÃO DE .TXT PARA EXECUTÁVEL):
+--------------------------------------------------------------------------------
+# Convertendo manifestos de configuração e ambiente
+mv env.txt .env
+mv Dockerfile.txt Dockerfile
+mv docker-compose.yml.txt docker-compose.yml
+
+# Nota: Assegure-se de editar o .env com sua API_KEY e IPs da VPS 2 antes de subir.
+# nano .env
+
+3. CONSTRUÇÃO E ATIVAÇÃO DO ORGANISMO (DOCKER):
+--------------------------------------------------------------------------------
+# Construindo a imagem da Psique (Node.js 22 LTS)
+docker-compose build --no-cache
+
+# Inicializando o container em modo Daemon (Background)
+docker-compose up -d
+
+4. VERIFICAÇÃO DE PULSO NEURAL:
+--------------------------------------------------------------------------------
+# Verificando se o servidor Cheshire e o DreamerWorker estão ativos
+docker-compose logs -f cheshire-psyche
+
+# Teste de conectividade local (Porta 3005)
+curl -X GET http://localhost:3005/api/health || echo "Cérebro não detectado."
+
+5. COMANDOS DE MANUTENÇÃO (REINICIALIZAÇÃO QUÂNTICA):
+--------------------------------------------------------------------------------
+# Para aplicar mudanças no código e reiniciar o ciclo circadiano:
+docker-compose restart cheshire-psyche
+
+# Para limpar memórias temporárias do Docker:
+docker system prune -f
+
+================================================================================
+"O gato pode sumir, mas o sorriso deve ser eterno."
+================================================================================
