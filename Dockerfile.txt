@@ -1,37 +1,39 @@
 
-# Estágio 1: Build (O Canteiro de Obras)
+# Estágio 1: Builder
 FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-# Instala dependências e ferramentas de build
+# Necessário para algumas dependências nativas se houver
 RUN apk add --no-cache python3 make g++
 
 COPY package*.json ./
 RUN npm install
 
-# Copia todo o código fonte
+# Copia todo o código-fonte
 COPY . .
 
-# Gera o build do frontend (React/Vite -> dist)
+# Executa build do Vite e do TSC (configurado no package.json)
 RUN npm run build
 
-# Estágio 2: Runtime (O Cérebro em Operação)
+# Estágio 2: Runner
 FROM node:22-alpine
 
 WORKDIR /app
 
-# Instala apenas dependências de produção
+# Copia apenas os arquivos necessários do estágio anterior
 COPY package*.json ./
-RUN npm install --omit=dev && npm install -g tsx
+RUN npm install --omit=dev
 
-# Copia os arquivos necessários do estágio de build
+# Copia os artefatos compilados (frontend e backend)
 COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/*.ts ./
-COPY --from=builder /app/types.ts ./
+COPY --from=builder /app/dist_server ./dist_server
 
-# Porta interna do container
+# Expõe a porta do core
 EXPOSE 3005
 
-# Inicializa o organismo usando tsx para performance nativa ESM
-CMD ["tsx", "server.ts"]
+# Ambiente de produção
+ENV NODE_ENV=production
+
+# Comando de inicialização
+CMD ["node", "dist_server/server.js"]

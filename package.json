@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
-    "start:brain": "node dist/server.js"
+    "build:client": "vite build",
+    "build:server": "tsc",
+    "build": "npm run build:client && npm run build:server",
+    "start": "node dist_server/server.js"
   },
   "dependencies": {
     "react": "^19.2.3",

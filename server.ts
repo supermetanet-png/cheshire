@@ -3,11 +3,10 @@ import express from 'express';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { IngestionService } from './IngestionService';
-import { RetrievalService } from './RetrievalService';
-import { DreamerWorker } from './DreamerWorker';
+import { IngestionService } from './IngestionService.js';
+import { RetrievalService } from './RetrievalService.js';
+import { DreamerWorker } from './DreamerWorker.js';
 
-// Inicialização de ambiente
 dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
@@ -16,108 +15,82 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3005;
 
-// Configurações de Middleware (Segurança e Volume de Dados)
-// Added 'as any' cast to bypass middleware type version mismatches in strict environments
 app.use(express.json({ limit: '50mb' }) as any);
 
-// --- ENDPOINTS NEURAIS (SISTEMA 2) ---
-
-/**
- * Ingestão de Memória: Processa dados da VPS 1 (n8n)
- */
-// Fix: Using 'any' for req and res to resolve type errors where standard Express properties were not being recognized (headers, status, body, json)
-app.post('/api/psyche/ingest', async (req: any, res: any): Promise<void> => {
-    const projectSlug = req.headers['x-project-slug'] as string;
-    
-    if (!projectSlug) {
-        res.status(400).json({ 
-            error: 'Project Identity Required', 
-            code: 'MISSING_X_PROJECT_SLUG' 
-        });
-        return;
-    }
+// --- API NEURAL ---
+app.post('/api/psyche/ingest', async (req: any, res: any) => {
+    const projectSlug = req.headers['x-project-slug'];
+    if (!projectSlug) return res.status(400).json({ error: 'Missing x-project-slug' });
 
     try {
-        const service = new IngestionService(projectSlug);
+        const service = new IngestionService(projectSlug as string);
         const result = await service.process(req.body);
         res.status(result.status).json(result);
     } catch (error: any) {
-        console.error(`[Neural Error] Ingestion Failed: ${error.message}`);
-        res.status(500).json({ error: 'Cognitive Ingestion Failure', detail: error.message });
+        res.status(500).json({ error: error.message });
     }
 });
 
-/**
- * Oráculo de Recuperação: Provê contexto profundo para a IA Executiva
- */
-// Fix: Using 'any' for req and res to resolve type errors where standard Express properties were not being recognized (body, status, json)
-app.post('/api/psyche/retrieve', async (req: any, res: any): Promise<void> => {
+app.post('/api/psyche/retrieve', async (req: any, res: any) => {
     const { query, project_id } = req.body;
-
-    if (!query || !project_id) {
-        res.status(400).json({ error: 'Payload Incompleto: Query e ProjectID são mandatórios.' });
-        return;
-    }
+    if (!query || !project_id) return res.status(400).json({ error: 'Payload incomplete' });
 
     try {
         const context = await RetrievalService.getContext(query, project_id);
         res.json({ context });
     } catch (error: any) {
-        console.error(`[Neural Error] Retrieval Failed: ${error.message}`);
-        res.status(500).json({ error: 'Oracle Connection Failure' });
+        res.status(500).json({ error: 'Retrieval failed' });
     }
 });
 
-/**
- * Health Check: Diagnóstico de pulso neural
- */
-// Fix: Using 'any' for req and res to resolve type errors where standard Express properties were not being recognized (json)
 app.get('/api/health', (req: any, res: any) => {
     res.json({ 
         status: 'ALIVE', 
-        pulse: new Date().toISOString(), 
-        version: '7.0.0-Singularity' 
+        pulse: new Date().toISOString(),
+        system: 'Cheshire V7 Core'
     });
 });
 
-// --- CAMADA DE RESSONÂNCIA (FRONTEND REACT) ---
+// --- FRONTEND SERVING ---
+// Garantia de caminho absoluto para o dist em qualquer ambiente Docker
+const distPath = path.resolve(process.cwd(), 'dist');
 
-const distPath = path.join(__dirname, 'dist');
+app.use(express.static(distPath) as any);
 
-// Serve arquivos estáticos (CSS, JS, Imagens)
-// Added 'as any' cast to bypass static middleware type version mismatches
-app.use(express.static(distPath, {
-    maxAge: '1d',
-    etag: true
-}) as any);
-
-// Fallback SPA: Entrega o index.html para qualquer rota não mapeada (React Router)
-// Fix: Using 'any' for req and res to resolve type errors where standard Express properties were not being recognized (sendFile)
 app.get('*', (req: any, res: any) => {
-    res.sendFile(path.join(distPath, 'index.html'));
+    // Se não for rota de API, serve o frontend
+    if (!req.path.startsWith('/api')) {
+        res.sendFile(path.join(distPath, 'index.html'));
+    } else {
+        res.status(404).json({ error: 'Neural endpoint not found' });
+    }
 });
 
-// --- BOOTSTRAP DO ORGANISMO ---
-
-const boot = async () => {
-    console.clear();
-    console.log("==================================================");
-    console.log("      CHESHIRE MEMORY CORE v7 - SINGULARIDADE     ");
-    console.log("==================================================");
-
+// --- BOOTSTRAP RESILIENTE ---
+const startBrain = async () => {
     try {
-        // Inicia workers de introspecção (Sleep Mode)
-        DreamerWorker.start();
-        console.log("[Sistema] DreamerWorker ativo. Ciclo circadiano iniciado.");
-
+        console.log(`[CHESHIRE CORE] Iniciando pulso neural na porta ${PORT}...`);
+        
+        // Iniciamos o servidor ANTES dos workers pesados para satisfazer o healthcheck do Docker
         app.listen(PORT, () => {
-            console.log(`[Sistema] Pulso detectado na porta ${PORT}`);
-            console.log(`[Sistema] Interface Visual disponível no IP da VPS.`);
+            console.log(`[CHESHIRE CORE] Servidor HTTP pronto.`);
+            
+            // Inicia processos de background de forma assíncrona para não bloquear o boot
+            setTimeout(() => {
+                try {
+                    DreamerWorker.start();
+                    console.log(`[CHESHIRE CORE] Ciclo circadiano DreamerWorker iniciado.`);
+                } catch (e) {
+                    console.error(`[Aviso] Falha ao iniciar DreamerWorker:`, e);
+                }
+            }, 1000);
         });
+
     } catch (error) {
-        console.error("[Fatal] Erro crítico na inicialização neural:", error);
+        console.error("[FATAL] Falha catastrófica no bootstrap:", error);
+        // Em produção, queremos que o Docker reinicie em caso de erro fatal real
         process.exit(1);
     }
 };
 
-boot();
+startBrain();
