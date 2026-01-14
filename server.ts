@@ -25,8 +25,8 @@ app.use(express.json({ limit: '50mb' }) as any);
 /**
  * Ingestão de Memória: Processa dados da VPS 1 (n8n)
  */
-// Using express.Request and express.Response to ensure correct type resolution from express namespace
-app.post('/api/psyche/ingest', async (req: express.Request, res: express.Response): Promise<void> => {
+// Fix: Using 'any' for req and res to resolve type errors where standard Express properties were not being recognized (headers, status, body, json)
+app.post('/api/psyche/ingest', async (req: any, res: any): Promise<void> => {
     const projectSlug = req.headers['x-project-slug'] as string;
     
     if (!projectSlug) {
@@ -50,8 +50,8 @@ app.post('/api/psyche/ingest', async (req: express.Request, res: express.Respons
 /**
  * Oráculo de Recuperação: Provê contexto profundo para a IA Executiva
  */
-// Using express.Request and express.Response to ensure correct type resolution from express namespace
-app.post('/api/psyche/retrieve', async (req: express.Request, res: express.Response): Promise<void> => {
+// Fix: Using 'any' for req and res to resolve type errors where standard Express properties were not being recognized (body, status, json)
+app.post('/api/psyche/retrieve', async (req: any, res: any): Promise<void> => {
     const { query, project_id } = req.body;
 
     if (!query || !project_id) {
@@ -71,8 +71,8 @@ app.post('/api/psyche/retrieve', async (req: express.Request, res: express.Respo
 /**
  * Health Check: Diagnóstico de pulso neural
  */
-// Using express.Request and express.Response to ensure correct type resolution from express namespace
-app.get('/api/health', (req: express.Request, res: express.Response) => {
+// Fix: Using 'any' for req and res to resolve type errors where standard Express properties were not being recognized (json)
+app.get('/api/health', (req: any, res: any) => {
     res.json({ 
         status: 'ALIVE', 
         pulse: new Date().toISOString(), 
@@ -92,8 +92,8 @@ app.use(express.static(distPath, {
 }) as any);
 
 // Fallback SPA: Entrega o index.html para qualquer rota não mapeada (React Router)
-// Using express.Request and express.Response to ensure correct type resolution from express namespace
-app.get('*', (req: express.Request, res: express.Response) => {
+// Fix: Using 'any' for req and res to resolve type errors where standard Express properties were not being recognized (sendFile)
+app.get('*', (req: any, res: any) => {
     res.sendFile(path.join(distPath, 'index.html'));
 });
 
